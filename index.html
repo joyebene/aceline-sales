@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aceline | Grow Your Brand With Confidence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Dancing+Script:wght@400;700&display=swap');
+
+        :root {
+            --brand-red: #E31B23;
+        }
+
+        .tail-container {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+
+        .heading-font {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, #fefbf6 0%, #f8f1e3 100%);
+        }
+
+        .nav-blur {
+            background: rgba(254, 251, 246, 0.85);
+            backdrop-filter: blur(12px);
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .program-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .program-card:hover {
+            transform: scale(1.03);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .faq-question {
+            transition: all 0.2s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="tail-container bg-[#fefbf6] text-[#1A1A1A] overflow-x-hidden">
+    <!-- NAVBAR -->
+    <nav class="nav-blur fixed top-0 left-0 right-0 z-50 border-b border-[#E31B23]/10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-8 py-5 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <img src="img/logo.jpg" alt="Aceline Logo" class="h-12 sm:h-14 rounded-2xl mr-1">
+                <span class="heading-font text-3xl tracking-tighter font-semibold">Aceline</span>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                <a href="#programs"
+                    class="hover:text-[#E31B23] transition-colors">Programs</a>
+                <a href="#why" class="hover:text-[#E31B23] transition-colors">Why
+                    Aceline</a>
+                <a href="https://acelinebrand.com" target="_blank"
+                    class="hover:text-[#E31B23] transition-colors">About</a>
+                <a href="#faq" class="hover:text-[#E31B23] transition-colors">FAQ</a>
+            </div>
+
+            <div class="flex items-center gap-x-4">
+                <a href="https://acelinebrand.com" target="_blank"
+                    class="px-4 py-1.5 text-xs font-semibold border border-[#1A1A1A] rounded-3xl hover:bg-[#1A1A1A] hover:text-white transition-all hidden md:block">
+                    Visit Aceline
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden w-11 h-11 flex items-center justify-center text-2xl">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t py-6 px-6">
+            <div class="flex flex-col gap-y-6 text-lg">
+                <a href="#programs" onclick="toggleMobileMenu()" class="hover:text-[#E31B23]">Programs</a>
+                <a href="#why" onclick="toggleMobileMenu()" class="hover:text-[#E31B23]">Why Aceline</a>
+                <a href="https://acelinebrand.com" target="_blank" onclick="toggleMobileMenu()"
+                    class="hover:text-[#E31B23]">About</a>
+                <a href="#faq" onclick="toggleMobileMenu()" class="hover:text-[#E31B23]">FAQ</a>
+                <a href="https://acelinebrand.com" target="_blank"
+                    class="inline-block px-6 py-2 bg-[#1A1A1A] text-white text-center rounded-3xl font-semibold">
+                    Visit Aceline
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero-bg pt-24 pb-20 md:pt-32 md:pb-28">
+        <div class="max-w-6xl mx-auto px-4 sm:px-8 grid md:grid-cols-2 gap-12 items-center">
+            <!-- Left Content -->
+            <div class="space-y-8 pt-8">
+                <div class="inline-flex items-center gap-x-2 bg-white rounded-3xl px-5 py-2 text-sm shadow-sm">
+                    <div class="w-2 h-2 bg-[#E31B23] rounded-full animate-pulse"></div>
+                    <span class="font-medium">New: 2026 Growth Collection</span>
+                </div>
+
+                <h1 class="heading-font text-5xl md:text-6xl leading-none tracking-tighter font-bold text-balance">
+                    Grow Your Brand<br>With Confidence
+                </h1>
+
+                <p class="text-lg md:text-xl text-[#333333] max-w-md leading-relaxed">
+                    Access practical business resources, branding frameworks, and growth programs designed to help
+                    entrepreneurs build stronger brands and generate more revenue.
+                </p>
+
+                <div class="flex flex-wrap gap-4">
+                    <a href="#programs"
+                        class="inline-block px-5 py-2.5 bg-[#E31B23] hover:bg-[#c4171e] text-white font-semibold rounded-3xl text-sm transition-all active:scale-95">
+                        Explore Programs
+                    </a>
+
+                    <a href="https://acelinebrand.com" target="_blank" rel="noopener"
+                        class="px-5 py-2.5 border-2 border-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white font-semibold rounded-3xl text-sm transition-all">
+                        Visit Aceline
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-x-8 pt-6">
+                    <div class="flex -space-x-4">
+                        <div
+                            class="w-8 h-8 bg-[#E31B23] rounded-2xl ring-2 ring-white flex items-center justify-center text-xs text-white font-bold">
+                            JD</div>
+                        <div
+                            class="w-8 h-8 bg-[#333333] rounded-2xl ring-2 ring-white flex items-center justify-center text-xs text-white font-bold">
+                            SA</div>
+                        <div
+                            class="w-8 h-8 bg-amber-600 rounded-2xl ring-2 ring-white flex items-center justify-center text-xs text-white font-bold">
+                            MK</div>
+                    </div>
+                    <div class="text-sm">
+                        <div class="font-semibold">Joined by 100+ founders</div>
+                        <div class="text-[#666666]">this month</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Visual -->
+            <div class="bg-white rounded-3xl shadow-2xl overflow-hidden relative z-10">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop"
+                    alt="Business branding strategy" class="w-full h-[350px] sm:h-[450px] object-cover" />
+
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
+
+                <div class="absolute bottom-8 left-8 text-white">
+                    <h3 class="text-3xl font-bold heading-font mb-2">
+                        Build a Brand That Stands Out
+                    </h3>
+                    <p class="text-white/90">
+                        Strategy, visibility, growth and impact.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- FEATURED PROGRAMS -->
+    <section id="programs" class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+                <div>
+                    <span class="uppercase tracking-[2px] text-xs font-mono text-[#E31B23]">CURATED COLLECTION</span>
+                    <h2 class="heading-font text-4xl font-bold tracking-tighter">Featured Programs</h2>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Program 1 -->
+                <div class="program-card bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
+                    <div class="h-2 bg-gradient-to-r from-[#E31B23] to-orange-500"></div>
+                    <div class="p-8">
+                        <div
+                            class="w-12 h-12 bg-red-100 text-[#E31B23] rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-compass text-3xl"></i>
+                        </div>
+                        <h3 class="font-bold text-xl heading-font mb-2">Brand Growth Blueprint</h3>
+                        <p class="text-[#666666] text-sm leading-relaxed mb-8">Complete framework to define your brand
+                            identity, positioning, and visual system.</p>
+
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <span class="text-xs text-gray-500">ONE-TIME</span>
+                                <div class="text-4xl font-semibold">₦15,000</div>
+                            </div>
+                            <button onclick="initiatePurchase('Brand Growth Blueprint', 15000)"
+                                class="px-6 py-2 bg-[#1A1A1A] hover:bg-black text-white text-sm font-semibold rounded-3xl transition">
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program 2 -->
+                <div class="program-card bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
+                    <div class="h-2 bg-gradient-to-r from-blue-500 to-cyan-400"></div>
+                    <div class="p-8">
+                        <div
+                            class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-robot text-3xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-2xl heading-font mb-2">AI For Business Masterclass</h3>
+                        <p class="text-[#666666] text-[15px] leading-relaxed mb-8">Leverage AI tools to accelerate
+                            content, marketing, and customer insights.</p>
+
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <span class="text-xs text-gray-500">ONE-TIME</span>
+                                <div class="text-4xl font-semibold">₦10,000</div>
+                            </div>
+                            <button onclick="initiatePurchase('AI For Business Masterclass', 10000)"
+                                class="px-6 py-2 bg-[#1A1A1A] hover:bg-black text-white text-sm font-semibold rounded-3xl transition">
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program 3 -->
+                <div class="program-card bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
+                    <div class="h-2 bg-gradient-to-r from-purple-500 to-violet-400"></div>
+                    <div class="p-8">
+                        <div
+                            class="w-12 h-12 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-share-nodes text-3xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-2xl heading-font mb-2">Social Media Growth Toolkit</h3>
+                        <p class="text-[#666666] text-[15px] leading-relaxed mb-8">Templates, strategies, and content
+                            systems for consistent brand growth on social.</p>
+
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <span class="text-xs text-gray-500">ONE-TIME</span>
+                                <div class="text-4xl font-semibold">₦7,500</div>
+                            </div>
+                            <button onclick="initiatePurchase('Social Media Growth Toolkit', 7500)"
+                                class="px-6 py-2 bg-[#1A1A1A] hover:bg-black text-white text-sm font-semibold rounded-3xl transition">
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program 4 -->
+                <div class="program-card bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
+                    <div class="h-2 bg-gradient-to-r from-emerald-500 to-teal-400"></div>
+                    <div class="p-8">
+                        <div
+                            class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-rocket text-3xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-2xl heading-font mb-2">Business Launch Accelerator</h3>
+                        <p class="text-[#666666] text-[15px] leading-relaxed mb-8">Step-by-step system to validate,
+                            brand, and launch your business successfully.</p>
+
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <span class="text-xs text-gray-500">ONE-TIME</span>
+                                <div class="text-4xl font-semibold">₦20,000</div>
+                            </div>
+                            <button onclick="initiatePurchase('Business Launch Accelerator', 20000)"
+                                class="px-6 py-2 bg-[#1A1A1A] hover:bg-black text-white text-sm font-semibold rounded-3xl transition">
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY ACELINE -->
+    <section id="why" class="py-24 bg-[#fefbf6]">
+        <div class="max-w-6xl mx-auto px-4 sm:px-8">
+            <div class="grid md:grid-cols-12 gap-16 items-center">
+                <div class="md:col-span-5">
+                    <span class="px-4 py-2 bg-white rounded-3xl text-sm font-medium inline-block mb-6">WHY ENTREPRENEURS
+                        CHOOSE US</span>
+                    <h2 class="heading-font text-4xl sm:text-5xl font-semibold tracking-tighter leading-none">Practical tools. Real
+                        results.</h2>
+                    <p class="mt-6 text-base text-[#333333]">We don't just teach theory. Every resource is battle-tested
+                        with Nigerian founders and businesses.</p>
+
+                    <div class="mt-12">
+                        <a href="https://acelinebrand.com" target="_blank" rel="noopener"
+                            class="inline-flex items-center gap-x-2 group">
+                            <span class="text-[#E31B23] text-sm font-medium">Learn more about our methodology</span>
+                            <div
+                                class="w-7 h-7 rounded-lg bg-[#E31B23] text-white flex items-center justify-center group-hover:rotate-45 transition">
+                                <i class="fa-solid fa-arrow-right"></i></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="md:col-span-7">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- Icon Card 1 -->
+                        <div class="bg-white rounded-3xl p-8 card-hover">
+                            <div
+                                class="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mb-6">
+                                <i class="fa-solid fa-pen-ruler text-3xl"></i>
+                            </div>
+                            <div class="font-semibold text-2xl">Strategic Branding</div>
+                            <p class="mt-3 text-[#555]">Craft identities that resonate and differentiate in competitive
+                                markets.</p>
+                        </div>
+
+                        <!-- Icon Card 2 -->
+                        <div class="bg-white rounded-3xl p-8 card-hover">
+                            <div
+                                class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6">
+                                <i class="fa-solid fa-arrow-trend-up text-3xl"></i>
+                            </div>
+                            <div class="font-semibold text-2xl">Business Growth</div>
+                            <p class="mt-3 text-[#555]">Systems and playbooks to scale sustainably.</p>
+                        </div>
+
+                        <!-- Icon Card 3 -->
+                        <div class="bg-white rounded-3xl p-8 card-hover">
+                            <div
+                                class="w-14 h-14 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center mb-6">
+                                <i class="fa-solid fa-sliders text-3xl"></i>
+                            </div>
+                            <div class="font-semibold text-2xl">Marketing Systems</div>
+                            <p class="mt-3 text-[#555]">Automated, repeatable marketing that works.</p>
+                        </div>
+
+                        <!-- Icon Card 4 -->
+                        <div class="bg-white rounded-3xl p-8 card-hover">
+                            <div
+                                class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mb-6">
+                                <i class="fa-solid fa-book text-3xl"></i>
+                            </div>
+                            <div class="font-semibold text-2xl">Practical Frameworks</div>
+                            <p class="mt-3 text-[#555]">Downloadable templates used by real businesses.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-8">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="heading-font text-4xl sm:text-5xl font-semibold tracking-tight">About Aceline</h2>
+                <div class="prose prose-lg mt-10 text-left mx-auto text-[#333333]">
+                    <p class="text-lg">Aceline helps entrepreneurs and businesses build memorable brands, improve
+                        visibility, attract customers, and grow sustainably through branding, strategy, and business
+                        development solutions.</p>
+                </div>
+                <a href="https://acelinebrand.com" target="_blank"
+                    class="mt-12 inline-block px-8 md:px-10 py-3 md:py-4 bg-[#1A1A1A] text-white font-semibold rounded-3xl hover:shadow-xl transition">
+                    Learn More About Aceline
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="py-24 bg-[#fefbf6]">
+        <div class="max-w-6xl mx-auto px-4 sm:px-8">
+            <div class="text-center mb-16">
+                <span class="uppercase text-xs tracking-widest text-[#E31B23]">DON'T JUST TAKE OUR WORD</span>
+                <h2 class="heading-font text-4xl sm:text-5xl font-semibold tracking-tighter mt-3">Real founders. Real results.</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-8 rounded-3xl shadow">
+                    <div class="flex gap-x-1 text-amber-400 mb-6">
+                        ★★★★☆
+                    </div>
+                    <p class="italic text-[#444] leading-relaxed">"The Brand Growth Blueprint gave me clarity I never
+                        had. Within 3 weeks I redesigned my entire brand and saw a 60% increase in inbound inquiries."
+                    </p>
+                    <div class="mt-8 flex items-center gap-x-4">
+                        <div class="w-11 h-11 bg-gray-200 rounded-2xl"></div>
+                        <div>
+                            <div class="font-semibold">Olaide Adeyemi</div>
+                            <div class="text-sm text-gray-500">Founder, Lush Naturals</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-8 rounded-3xl shadow">
+                    <div class="flex gap-x-1 text-amber-400 mb-6">
+                        ★★★★★
+                    </div>
+                    <p class="italic text-[#444] leading-relaxed">"The Social Media Growth Toolkit is pure gold. My
+                        engagement tripled after implementing just the content pillars."</p>
+                    <div class="mt-8 flex items-center gap-x-4">
+                        <div class="w-11 h-11 bg-gray-200 rounded-2xl"></div>
+                        <div>
+                            <div class="font-semibold">Chioma Okoro</div>
+                            <div class="text-sm text-gray-500">CEO, Heritage Threads</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-8 rounded-3xl shadow">
+                    <div class="flex gap-x-1 text-amber-400 mb-6">
+                        ★★★★☆
+                    </div>
+                    <p class="italic text-[#444] leading-relaxed">"Launching with the Accelerator program was the best
+                        decision I made this year. The frameworks are practical and easy to follow."</p>
+                    <div class="mt-8 flex items-center gap-x-4">
+                        <div class="w-11 h-11 bg-gray-200 rounded-2xl"></div>
+                        <div>
+                            <div class="font-semibold">Emmanuel Udo</div>
+                            <div class="text-sm text-gray-500">Founder, Swift Logistics</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-8">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="heading-font text-4xl sm:text-5xl font-semibold text-center tracking-tighter mb-16">Frequently Asked
+                    Questions</h2>
+
+                <div class="space-y-4">
+                    <!-- FAQ Item -->
+                    <div class="faq-item border border-gray-100 rounded-3xl overflow-hidden">
+                        <button onclick="toggleAccordion(this)"
+                            class="faq-question w-full px-8 py-7 text-left flex justify-between items-center hover:bg-gray-50">
+                            <span class="font-medium text-lg">Are the resources downloadable instantly?</span>
+                            <span class="text-3xl leading-none text-gray-400 transition-transform">+</span>
+                        </button>
+                        <div class="accordion-content px-8 pb-8 text-[#555]">
+                            Yes. After successful payment you will receive immediate access to all files and resources
+                            via email and your Aceline dashboard.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="faq-item border border-gray-100 rounded-3xl overflow-hidden">
+                        <button onclick="toggleAccordion(this)"
+                            class="faq-question w-full px-8 py-7 text-left flex justify-between items-center hover:bg-gray-50">
+                            <span class="font-medium text-lg">Do you offer refunds?</span>
+                            <span class="text-3xl leading-none text-gray-400 transition-transform">+</span>
+                        </button>
+                        <div class="accordion-content px-8 pb-8 text-[#555]">
+                            We offer a 14-day money-back guarantee if you're not satisfied with your purchase.
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="faq-item border border-gray-100 rounded-3xl overflow-hidden">
+                        <button onclick="toggleAccordion(this)"
+                            class="faq-question w-full px-8 py-7 text-left flex justify-between items-center hover:bg-gray-50">
+                            <span class="font-medium text-lg">Are the programs suitable for beginners?</span>
+                            <span class="text-3xl leading-none text-gray-400 transition-transform">+</span>
+                        </button>
+                        <div class="accordion-content px-8 pb-8 text-[#555]">
+                            Absolutely. All programs are designed with clear step-by-step guidance suitable for both new
+                            and experienced entrepreneurs.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="py-28 bg-[#1A1A1A] text-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-8 text-center">
+            <h2 class="heading-font text-4xl sm:text-5xl font-bold tracking-tighter">Ready To Elevate Your Brand?</h2>
+            <p class="max-w-md mx-auto mt-6 text-lg text-gray-300">Take the next step with practical resources and
+                proven strategies from Aceline.</p>
+
+            <div class="flex flex-col sm:flex-row gap-5 justify-center mt-12">
+                <a href="#programs"
+                    class="inline-block px-8 md:px-10 py-3 md:py-4 bg-white text-[#1A1A1A] font-semibold rounded-3xl text-base hover:bg-amber-50 transition">
+                    Get Started Today
+                </a>
+                <a href="https://acelinebrand.com" target="_blank"
+                    class="px-8 md:px-10 py-3 md:py-4  border border-white/60 hover:border-white font-semibold rounded-3xl text-base transition">
+                    Visit Aceline
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#fefbf6] pt-20 pb-12">
+        <div class="max-w-6xl mx-auto px-4 sm:px-8">
+            <div class="flex flex-col md:flex-row justify-between gap-y-16">
+                <!-- Left -->
+                <div>
+                    <div class="flex items-center mb-8">
+                        <img src="img/logo.jpg" alt="Aceline Logo" class="w-10 h-10 md:w-14 md:h-14 rounded-2xl">
+                        <span class="heading-font text-4xl tracking-tighter font-semibold">Aceline</span>
+                    </div>
+                    <p class="max-w-xs text-[#666666]">Building better brands across Africa.</p>
+
+                    <div class="flex gap-x-6 mt-10 text-2xl text-[#333]">
+                        <a href="#" class="hover:text-[#E31B23] transition"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" class="hover:text-[#E31B23] transition"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="hover:text-[#E31B23] transition"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div class="grid grid-cols-3 gap-x-16">
+                    <div>
+                        <div class="font-semibold mb-6">Platform</div>
+                        <div class="space-y-3 text-sm">
+                            <div><a href="#" class="hover:text-[#E31B23]">Programs</a></div>
+                            <div><a href="#" class="hover:text-[#E31B23]">Templates</a></div>
+                            <div><a href="#" class="hover:text-[#E31B23]">Resources</a></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-semibold mb-6">Company</div>
+                        <div class="space-y-3 text-sm">
+                            <div><a href="https://acelinebrand.com" target="_blank" class="hover:text-[#E31B23]">About
+                                    Us</a></div>
+                            <div><a href="#" class="hover:text-[#E31B23]">Blog</a></div>
+                            <div><a href="#" class="hover:text-[#E31B23]">Contact</a></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="font-semibold mb-6">Legal</div>
+                        <div class="space-y-3 text-sm">
+                            <div><a href="#" class="hover:text-[#E31B23]">Privacy</a></div>
+                            <div><a href="#" class="hover:text-[#E31B23]">Terms</a></div>
+                            <div><a href="#" class="hover:text-[#E31B23]">Refund Policy</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="border-t mt-20 pt-8 text-xs text-gray-500 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div>© 2026 Aceline Brand Ltd. All rights reserved.</div>
+                <div class="flex gap-x-6">
+                    <div>Built with intention</div>
+                    <a href="https://acelinebrand.com" target="_blank" class="hover:text-black">acelinebrand.com</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- TAILWIND SCRIPT -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script>
+        function initializeTailwind() {
+            tailwind.config = {
+                content: [],
+                theme: {
+                    extend: {}
+                }
+            }
+        }
+
+        // Mobile menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu')
+            menu.classList.toggle('hidden')
+        }
+
+        // Initialize mobile menu button
+        function initMobileMenu() {
+            const btn = document.getElementById('mobile-menu-btn')
+            btn.addEventListener('click', toggleMobileMenu)
+        }
+
+        // Accordion
+        function toggleAccordion(el) {
+            const content = el.nextElementSibling
+            const allContents = document.querySelectorAll('.accordion-content')
+            const allButtons = document.querySelectorAll('.faq-question')
+
+            // Close all others
+            allContents.forEach(c => {
+                if (c !== content) c.style.maxHeight = null
+            })
+            allButtons.forEach(b => {
+                if (b !== el) b.lastElementChild.textContent = '+'
+            })
+
+            // Toggle this one
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null
+                el.lastElementChild.textContent = '+'
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px"
+                el.lastElementChild.textContent = '−'
+            }
+        }
+
+
+
+        // Paystack purchase flow
+        function initiatePurchase(programName, price) {
+            const userEmail = prompt("Please enter your email to proceed:", "customer@email.com");
+            if (userEmail === null || userEmail.trim() === "") {
+                alert("Email is required to initiate payment.");
+                return;
+            }
+
+            const handler = PaystackPop.setup({
+                key: 'pk_test_3bace34513a7cafb41e1fe3caf721d7b63336685',
+                email: userEmail,
+                amount: price * 100, // Amount in kobo
+                currency: 'NGN',
+                ref: 'aceline-' + Math.floor((Math.random() * 1000000000) + 1), // Unique ref
+                callback: function (response) {
+                    // IMPORTANT: You must verify the transaction on your server
+                    // See documentation: https://paystack.com/docs/payments/verify-transaction/
+                    alert('Payment complete! Reference: ' + response.reference);
+                    // Example: Redirect to a success page
+                    // window.location.href = '/thank-you.html?reference=' + response.reference;
+                },
+                onClose: function () {
+                    alert('Payment window closed.');
+                }
+            });
+            handler.openIframe();
+        }
+
+        // Keyboard shortcuts
+        function handleKeyboard(e) {
+            if (e.metaKey && e.key === "k") {
+                e.preventDefault()
+                alert("Command palette would appear here (demo)")
+            }
+        }
+
+        // Initialize everything
+        function initializePage() {
+            initializeTailwind()
+            initMobileMenu()
+
+            // Add keyboard listener
+            document.addEventListener('keydown', handleKeyboard)
+
+            // Make first accordion open by default
+            setTimeout(() => {
+                const firstBtn = document.querySelector('.faq-question')
+                if (firstBtn) {
+                    firstBtn.click()
+                }
+            }, 800)
+
+            console.log('%c✅ Aceline landing page initialized successfully', 'color:#E31B23; font-size:13px')
+        }
+
+        // Boot the app
+        window.onload = initializePage
+    </script>
+
+
+</body>
+
+</html>
