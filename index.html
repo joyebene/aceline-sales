@@ -97,7 +97,7 @@
 
                 <!-- Mobile Menu Button -->
                 <button id="mobile-menu-btn" class="md:hidden w-11 h-11 flex items-center justify-center text-2xl">
-                    <i class="fa-solid fa-bars"></i>
+                    {<i class="fa-solid fa-bars"></i>}
                 </button>
             </div>
         </div>
@@ -133,8 +133,8 @@
                 </h1>
 
                 <p class="text-lg md:text-xl text-[#333333] max-w-md leading-relaxed">
-                    Join the exclusive growth training. Learn the exact blueprints behind profitable information
-                    marketing, high-converting sales frameworks, and hyper-targeted meta advertising.
+                    Access practical skill knowledge to build consistent cash flow, scale up your business, and empower
+                    yourself with the right tools to generate substantial revenue.
                 </p>
 
                 <div class="flex flex-wrap gap-4">
@@ -157,7 +157,7 @@
                             MK</div>
                     </div>
                     <div class="text-sm">
-                        <div class="font-semibold">Joined by 100+ founders</div>
+                        <div class="font-semibold">Joined by 20+ founders</div>
                         <div class="text-[#666666]">this month</div>
                     </div>
                 </div>
@@ -165,8 +165,8 @@
 
             <!-- Right Visual -->
             <div class="bg-white rounded-3xl shadow-2xl overflow-hidden relative z-10">
-                <img src="/img/hero-img.jpeg"
-                    alt="Business branding strategy" class="w-full h-[350px] sm:h-[450px] object-cover" />
+                <img src="/img/hero-img.jpeg" alt="Business branding strategy"
+                    class="w-full h-[350px] sm:h-[450px] object-cover" />
 
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
 
@@ -188,7 +188,8 @@
             <div class="bg-gray-50 rounded-lg p-6 sm:p-8 md:p-10 border-l-8 border-[#E31B23]">
                 <blockquote>
                     <p class="text-2xl md:text-3xl font-medium text-gray-900 leading-relaxed">
-                        Access practical skill knowledge to build consistent cash flow, scale up your business, and empower yourself with the right tools to generate substantial revenue.
+                        Join the exclusive growth training. Learn the exact blueprints behind profitable information
+                        marketing, high-converting sales frameworks, and hyper-targeted meta advertising.
                     </p>
                 </blockquote>
             </div>
@@ -201,7 +202,7 @@
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
                 <div>
                     <span class="uppercase tracking-[2px] text-xs font-mono text-[#E31B23]">CURATED COLLECTION</span>
-                    <h2 class="heading-font text-4xl font-bold tracking-tighter">Featured Programs</h2>
+                    <h2 class="heading-font text-4xl font-bold tracking-tighter">Exclusive Inclusions:</h2>
                 </div>
             </div>
 
@@ -228,14 +229,30 @@
                                 <span class="text-xs text-gray-500">ONE-TIME</span>
                                 <div class="text-4xl font-semibold">₦15,000</div>
                             </div>
-                            <button onclick="initiatePurchase('Brand Growth Blueprint', 15000)"
-                                class="px-6 py-2 bg-[#1A1A1A] hover:bg-black text-white text-sm font-semibold rounded-3xl transition">
-                                Buy Now
+                            <button onclick="openPackageModal('Brand Growth Blueprint')"
+                                class="px-6 py-2 bg-[#1A1A1A] hover:bg-black text-white rounded-3xl">
+                                Apply Now
                             </button>
                         </div>
                     </div>
                 </div>
+            </div>
 
+            <div class="mt-8 text-center">
+                <p class="text-sm text-gray-400 italic">
+                    All products are covered by our customer satisfaction refund policy.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="additional-programs" class="py-24 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-8">
+            <div class="text-center mb-16">
+                <h2 class="heading-font text-4xl font-bold tracking-tighter">Additional Programs</h2>
+                <p class="text-lg text-gray-600 mt-2">Explore more ways to grow your brand and income.</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
                 <!-- Program 2 -->
                 <div class="program-card bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm">
                     <div class="h-2 bg-gradient-to-r from-blue-500 to-cyan-400"></div>
@@ -244,24 +261,21 @@
                             class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mb-6">
                             <i class="fa-solid fa-robot text-3xl"></i>
                         </div>
-                        <h3 class="font-semibold text-2xl heading-font mb-2">AI For Business Masterclass</h3>
+                        <h3 class="font-semibold text-2xl heading-font mb-2">Learn How to Run Professional Meta Ads</h3>
                         <div
                             class="inline-flex items-center gap-2 px-3 py-1 bg-green-50 text-green-700 rounded-full text-xs font-medium mb-4">
                             <i class="fa-solid fa-shield-check"></i>
                             <span>Refundable</span>
                         </div>
-                        <p class="text-[#666666] text-[15px] leading-relaxed mb-8">Leverage AI tools to accelerate
-                            content, marketing, and customer insights.</p>
+                        <p class="text-[#666666] text-[15px] leading-relaxed mb-8">Master the art of running
+                            professional Meta (Facebook and Instagram) ads. Learn targeting, creative strategies, budget
+                            optimization, and performance analysis to maximize your ROI.</p>
 
                         <div class="flex justify-between items-end">
                             <div>
                                 <span class="text-xs text-gray-500">ONE-TIME</span>
                                 <div class="text-4xl font-semibold">₦10,000</div>
                             </div>
-                            <button onclick="initiatePurchase('AI For Business Masterclass', 10000)"
-                                class="px-6 py-2 bg-[#1A1A1A] hover:bg-black text-white text-sm font-semibold rounded-3xl transition">
-                                Buy Now
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -274,24 +288,20 @@
                             class="w-12 h-12 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center mb-6">
                             <i class="fa-solid fa-share-nodes text-3xl"></i>
                         </div>
-                        <h3 class="font-semibold text-2xl heading-font mb-2">Social Media Growth Toolkit</h3>
+                        <h3 class="font-semibold text-2xl heading-font mb-2">Information Marketing</h3>
                         <div
                             class="inline-flex items-center gap-2 px-3 py-1 bg-green-50 text-green-700 rounded-full text-xs font-medium mb-4">
                             <i class="fa-solid fa-shield-check"></i>
                             <span>Refundable</span>
                         </div>
-                        <p class="text-[#666666] text-[15px] leading-relaxed mb-8">Templates, strategies, and content
-                            systems for consistent brand growth on social.</p>
+                        <p class="text-[#666666] text-[15px] leading-relaxed mb-8">Generate consistent cash flow with
+                            meta ads.</p>
 
                         <div class="flex justify-between items-end">
                             <div>
                                 <span class="text-xs text-gray-500">ONE-TIME</span>
                                 <div class="text-4xl font-semibold">₦7,500</div>
                             </div>
-                            <button onclick="initiatePurchase('Social Media Growth Toolkit', 7500)"
-                                class="px-6 py-2 bg-[#1A1A1A] hover:bg-black text-white text-sm font-semibold rounded-3xl transition">
-                                Buy Now
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -318,10 +328,6 @@
                                 <span class="text-xs text-gray-500">ONE-TIME</span>
                                 <div class="text-4xl font-semibold">₦20,000</div>
                             </div>
-                            <button onclick="initiatePurchase('Business Launch Accelerator', 20000)"
-                                class="px-6 py-2 bg-[#1A1A1A] hover:bg-black text-white text-sm font-semibold rounded-3xl transition">
-                                Buy Now
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -357,10 +363,6 @@
                                 <div class="text-4xl font-semibold">₦5,000</div>
                             </div>
 
-                            <button onclick="initiatePurchase('200K/Month Blueprint', 5000)"
-                                class="px-6 py-2 bg-[#1A1A1A] hover:bg-black text-white text-sm font-semibold rounded-3xl transition">
-                                Buy Now
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -379,26 +381,31 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-8">
             <div class="text-center mb-16">
                 <h2 class="heading-font text-4xl font-bold tracking-tighter">What You Will Learn</h2>
-                <p class="text-lg text-gray-600 mt-2">Our core curriculum is designed to give you a competitive edge.</p>
+                <p class="text-lg text-gray-600 mt-2">Our core curriculum is designed to give you a competitive edge.
+                </p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Information Marketing Card -->
                 <div class="card-hover bg-white rounded-xl shadow-md overflow-hidden p-8">
                     <h3 class="heading-font text-xl font-bold mb-3">1. Information Marketing</h3>
-                    <p class="text-gray-600">Learn how to extract value from knowledge assets, package expertise into digital products, and structure automated distribution channels to build reliable income.</p>
+                    <p class="text-gray-600">Learn how to extract value from knowledge assets, package expertise into
+                        digital products, and structure automated distribution channels to build reliable income.</p>
                 </div>
 
                 <!-- Sales Blueprints Card -->
                 <div class="card-hover bg-white rounded-xl shadow-md overflow-hidden p-8">
                     <h3 class="heading-font text-xl font-bold mb-3">2. Sales Blueprints</h3>
-                    <p class="text-gray-600">Master the architecture of closing deals. Implement high-converting conversion scripts, direct-response flows, and modern psychology to convert traffic consistently.</p>
+                    <p class="text-gray-600">Master the architecture of closing deals. Implement high-converting
+                        conversion scripts, direct-response flows, and modern psychology to convert traffic
+                        consistently.</p>
                 </div>
 
                 <!-- Meta Advertising Card -->
                 <div class="card-hover bg-white rounded-xl shadow-md overflow-hidden p-8">
                     <h3 class="heading-font text-xl font-bold mb-3">3. Meta Advertising</h3>
-                    <p class="text-gray-600">Gain full backend control of Facebook and Instagram ads. Build hyper-targeted media budgets, launch optimized assets, and scale ad accounts profitably.</p>
+                    <p class="text-gray-600">Gain full backend control of Facebook and Instagram ads. Build
+                        hyper-targeted media budgets, launch optimized assets, and scale ad accounts profitably.</p>
                 </div>
             </div>
         </div>
@@ -415,48 +422,58 @@
             <div class="max-w-3xl mx-auto">
                 <ul class="space-y-6">
                     <li class="flex items-start p-6 bg-gray-50 rounded-lg">
-                        <div class="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-green-100 text-green-600 rounded-full mr-5 mt-1">
+                        <div
+                            class="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-green-100 text-green-600 rounded-full mr-5 mt-1">
                             <i class="fa-solid fa-check"></i>
                         </div>
                         <div>
                             <h4 class="font-bold text-lg">Direct Blueprint Access</h4>
-                            <p class="text-gray-600">Instant downloadable frameworks and configurations for immediate operational use.</p>
+                            <p class="text-gray-600">Instant downloadable frameworks and configurations for immediate
+                                operational use.</p>
                         </div>
                     </li>
                     <li class="flex items-start p-6 bg-gray-50 rounded-lg">
-                        <div class="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-green-100 text-green-600 rounded-full mr-5 mt-1">
+                        <div
+                            class="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-green-100 text-green-600 rounded-full mr-5 mt-1">
                             <i class="fa-solid fa-check"></i>
                         </div>
                         <div>
                             <h4 class="font-bold text-lg">Consistent Cash Flow Architecture</h4>
-                            <p class="text-gray-600">The continuous tracking checklist to maintain baseline recurring business revenue.</p>
+                            <p class="text-gray-600">The continuous tracking checklist to maintain baseline recurring
+                                business revenue.</p>
                         </div>
                     </li>
                     <li class="flex items-start p-6 bg-gray-50 rounded-lg">
-                        <div class="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-green-100 text-green-600 rounded-full mr-5 mt-1">
+                        <div
+                            class="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-green-100 text-green-600 rounded-full mr-5 mt-1">
                             <i class="fa-solid fa-check"></i>
                         </div>
                         <div>
                             <h4 class="font-bold text-lg">The Enterprise Startup Kit</h4>
-                            <p class="text-gray-600">Step-by-step procedures to legally organize, build, and transition your setup into a professional corporation.</p>
+                            <p class="text-gray-600">Step-by-step procedures to legally organize, build, and transition
+                                your setup into a professional corporation.</p>
                         </div>
                     </li>
                     <li class="flex items-start p-6 bg-gray-50 rounded-lg">
-                        <div class="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-green-100 text-green-600 rounded-full mr-5 mt-1">
+                        <div
+                            class="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-green-100 text-green-600 rounded-full mr-5 mt-1">
                             <i class="fa-solid fa-check"></i>
                         </div>
                         <div>
                             <h4 class="font-bold text-lg">The Velocity Selling System</h4>
-                            <p class="text-gray-600">Advanced frameworks to optimize conversion metrics and sell complex digital products like an industry veteran.</p>
+                            <p class="text-gray-600">Advanced frameworks to optimize conversion metrics and sell complex
+                                digital products like an industry veteran.</p>
                         </div>
                     </li>
                     <li class="flex items-start p-6 bg-gray-50 rounded-lg">
-                        <div class="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-green-100 text-green-600 rounded-full mr-5 mt-1">
+                        <div
+                            class="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-green-100 text-green-600 rounded-full mr-5 mt-1">
                             <i class="fa-solid fa-check"></i>
                         </div>
                         <div>
                             <h4 class="font-bold text-lg">Live Q&A Strategy Integration</h4>
-                            <p class="text-gray-600">Open architecture session to remove operational bottlenecks directly with the instructors.</p>
+                            <p class="text-gray-600">Open architecture session to remove operational bottlenecks
+                                directly with the instructors.</p>
                         </div>
                     </li>
                 </ul>
@@ -748,6 +765,105 @@
         </div>
     </footer>
 
+    <!-- package option modal -->
+    <!-- Package Modal -->
+    <div id="packageModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+
+        <div class="bg-white rounded-3xl w-full max-w-lg p-8 m-4">
+
+            <h2 class="text-2xl font-bold mb-6">
+                Choose Training Package
+            </h2>
+
+            <!-- STEP 1 -->
+            <div id="step1">
+
+                <h3 class="font-semibold mb-4">
+                    Select Training Type
+                </h3>
+
+                <div class="space-y-4">
+
+                    <button onclick="selectTraining('Online')"
+                        class="w-full border rounded-xl p-4 hover:border-red-500">
+
+                        Online Training
+
+                    </button>
+
+                    <button onclick="selectTraining('Physical')"
+                        class="w-full border rounded-xl p-4 hover:border-red-500">
+
+                        Physical Training
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- STEP 2 -->
+            <div id="step2" class="hidden">
+
+                <h3 class="font-semibold mb-4">
+                    Choose Your Package
+                </h3>
+
+                <div class="space-y-3">
+
+                    <button onclick="selectPrice(10000)" class="w-full border rounded-xl p-4">
+                        ₦10,000 Package
+                    </button>
+
+                    <button onclick="selectPrice(20000)" class="w-full border rounded-xl p-4">
+                        ₦20,000 Package
+                    </button>
+
+                    <button onclick="selectPrice(50000)" class="w-full border rounded-xl p-4">
+                        ₦50,000 Package
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- STEP 3 -->
+            <div id="step3" class="hidden">
+
+                <h3 class="font-semibold mb-5">
+                    Enter Your Details
+                </h3>
+
+                <div class="space-y-4">
+
+                    <input id="customerName" type="text" placeholder="Full Name" class="w-full border rounded-xl p-3">
+
+                    <input id="customerEmail" type="email" placeholder="Email Address"
+                        class="w-full border rounded-xl p-3">
+
+                    <input id="customerPhone" type="text" placeholder="Phone Number"
+                        class="w-full border rounded-xl p-3">
+
+                </div>
+
+                <button onclick="payNow()" class="w-full mt-6 bg-[#E31B23] text-white py-3 rounded-xl">
+
+                    Continue to Payment
+
+                </button>
+
+            </div>
+
+            <button onclick="closeModal()" class="mt-6 text-gray-500">
+
+                Cancel
+
+            </button>
+
+        </div>
+
+    </div>
+
     <!-- TAILWIND SCRIPT -->
     <script src="https://js.paystack.co/v1/inline.js"></script>
     <script>
@@ -799,31 +915,126 @@
 
 
         // Paystack purchase flow
-        function initiatePurchase(programName, price) {
-            const userEmail = prompt("Please enter your email to proceed:", "customer@email.com");
-            if (userEmail === null || userEmail.trim() === "") {
-                alert("Email is required to initiate payment.");
+        let selectedProgram = "";
+        let selectedTraining = "";
+        let selectedAmount = 0;
+
+        function openPackageModal(program) {
+
+            selectedProgram = program;
+
+            document.getElementById("packageModal").classList.remove("hidden");
+            document.getElementById("packageModal").classList.add("flex");
+
+            document.getElementById("step1").classList.remove("hidden");
+            document.getElementById("step2").classList.add("hidden");
+            document.getElementById("step3").classList.add("hidden");
+
+        }
+
+        function closeModal() {
+
+            document.getElementById("packageModal").classList.add("hidden");
+            document.getElementById("packageModal").classList.remove("flex");
+
+        }
+
+        function selectTraining(type) {
+
+            selectedTraining = type;
+
+            document.getElementById("step1").classList.add("hidden");
+            document.getElementById("step2").classList.remove("hidden");
+
+        }
+
+        function selectPrice(price) {
+
+            selectedAmount = price;
+
+            document.getElementById("step2").classList.add("hidden");
+            document.getElementById("step3").classList.remove("hidden");
+
+        }
+
+        function payNow() {
+
+            const name = document.getElementById("customerName").value;
+            const email = document.getElementById("customerEmail").value;
+            const phone = document.getElementById("customerPhone").value;
+
+            if (!name || !email || !phone) {
+
+                alert("Please complete all fields.");
+
                 return;
+
             }
 
             const handler = PaystackPop.setup({
-                key: 'pk_test_3bace34513a7cafb41e1fe3caf721d7b63336685',
-                email: userEmail,
-                amount: price * 100, // Amount in kobo
-                currency: 'NGN',
-                ref: 'aceline-' + Math.floor((Math.random() * 1000000000) + 1), // Unique ref
-                callback: function (response) {
-                    // IMPORTANT: You must verify the transaction on your server
-                    // See documentation: https://paystack.com/docs/payments/verify-transaction/
-                    alert('Payment complete! Reference: ' + response.reference);
-                    // Example: Redirect to a success page
-                    // window.location.href = '/thank-you.html?reference=' + response.reference;
+
+                key: "pk_test_3bace34513a7cafb41e1fe3caf721d7b63336685",
+
+                email,
+
+                amount: selectedAmount * 100,
+
+                currency: "NGN",
+
+                metadata: {
+
+                    custom_fields: [
+
+                        {
+                            display_name: "Full Name",
+                            variable_name: "full_name",
+                            value: name
+                        },
+
+                        {
+                            display_name: "Phone",
+                            variable_name: "phone",
+                            value: phone
+                        },
+
+                        {
+                            display_name: "Training Type",
+                            variable_name: "training_type",
+                            value: selectedTraining
+                        },
+
+                        {
+                            display_name: "Program",
+                            variable_name: "program",
+                            value: selectedProgram
+                        }
+
+                    ]
+
                 },
-                onClose: function () {
-                    alert('Payment window closed.');
+
+                ref: "ACL-" + Date.now(),
+
+                callback: function (response) {
+
+                    alert("Payment Successful");
+
+                    console.log(response);
+
+                    // Verify payment from your backend
+
+                },
+
+                onClose() {
+
+                    console.log("Payment Closed");
+
                 }
+
             });
+
             handler.openIframe();
+
         }
 
         // Keyboard shortcuts
