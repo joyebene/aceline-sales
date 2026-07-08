@@ -806,10 +806,8 @@
 
                 </div>
 
-                <button onclick="payNow()" class="w-full mt-6 bg-[#E31B23] text-white py-3 rounded-xl">
-
+                <button id="payNowButton" onclick="payNow()" class="w-full mt-6 bg-[#E31B23] text-white py-3 rounded-xl">
                     Continue to Payment
-
                 </button>
 
             </div>
@@ -825,7 +823,7 @@
     </div>
 
     <!-- TAILWIND SCRIPT -->
-    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
     <script>
         function initializeTailwind() {
             tailwind.config = {
@@ -931,69 +929,67 @@
 
             }
 
-            const handler = PaystackPop.setup({
+            const payNowButton = document.getElementById("payNowButton");
+            payNowButton.disabled = true;
+            payNowButton.textContent = "Processing...";
 
-                key: "pk_test_3bace34513a7cafb41e1fe3caf721d7b63336685",
-
-                email,
-
-                amount: selectedAmount * 100,
-
+            FlutterwaveCheckout({
+                public_key: "FLWPUBK_TEST-d5f037c2a78bd502141c34964799b98e-X", //test pk
+                // FLWPUBK-5eed267042fd4cdb04a3ffc7c4f6f3e0-X
+                tx_ref: "aceline_" + Math.floor(Math.random() * 1000000000),
+                amount: selectedAmount,
                 currency: "NGN",
+                payment_options: "card,mobilemoney,ussd",
+                customer: {
+                    email: email,
+                    phone_number: phone,
+                    name: name,
+                },
+                customizations: {
+                    title: "Aceline Growth Training",
+                    description: "Payment for " + selectedProgram + " - " + selectedTraining,
+                    logo: "https://acelinebrand.com/logo/img%20(5).jpg",
+                },
+                callback: async function (response) {
+                    payNowButton.disabled = false;
+                    payNowButton.textContent = "Continue to Payment";
+                    if (response.status === "successful") {
+                        alert("Payment Successful! Transaction ID: " + response.transaction_id);
+                        closeModal();
 
-                metadata: {
+                        try {
+                            const backendResponse = await fetch('http://localhost:3000/api/payment-success', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    name, email, phone, program: selectedProgram, training: selectedTraining,
+                                    amount: selectedAmount, transaction_id: response.transaction_id,
+                                    flw_ref: response.flw_ref, status: response.status
+                                }),
+                            });
 
-                    custom_fields: [
-
-                        {
-                            display_name: "Full Name",
-                            variable_name: "full_name",
-                            value: name
-                        },
-
-                        {
-                            display_name: "Phone",
-                            variable_name: "phone",
-                            value: phone
-                        },
-
-                        {
-                            display_name: "Training Type",
-                            variable_name: "training_type",
-                            value: selectedTraining
-                        },
-
-                        {
-                            display_name: "Program",
-                            variable_name: "program",
-                            value: selectedProgram
+                            const data = await backendResponse.json();
+                            if (backendResponse.ok) {
+                                console.log('Backend success:', data.message);
+                            } else {
+                                console.error('Backend error:', data.message);
+                                alert('Error processing payment on backend. Please contact support.');
+                            }
+                        } catch (error) {
+                            console.error('Error communicating with backend:', error);
+                            alert('Network error. Please contact support.');
                         }
-
-                    ]
-
+                    } else {
+                        alert("Payment Failed. Please try again.");
+                    }
                 },
-
-                ref: "ACL-" + Date.now(),
-
-                callback: function (response) {
-
-                    alert("Payment Successful");
-
-                    console.log(response);
-
-                    // Verify payment from your backend
-
+                onclose: function () {
+                    payNowButton.disabled = false;
+                    payNowButton.textContent = "Continue to Payment";
+                    console.log("Payment modal closed.");
                 },
-
-                onClose() {
-
-                    console.log("Payment Closed");
-
-                }
-
             });
 
-            handler.openIframe();
 
         }
 
