@@ -810,18 +810,65 @@
                     Choose Your Package
                 </h3>
 
-                <div class="space-y-3">
+                <div class="space-y-4">
 
-                    <button onclick="selectPrice(10000)" class="w-full border rounded-xl p-4">
-                        ₦10,000 - Regular
+                    <!-- Regular -->
+                    <button onclick="selectPrice(10000)"
+                        class="w-full text-left border rounded-2xl p-5 hover:border-[#E31B23] hover:bg-red-50 transition">
+
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-semibold text-lg">Regular</h3>
+                            <span class="font-bold text-[#E31B23]">₦10,000</span>
+                        </div>
+
+                        <ul class="mt-3 text-sm text-gray-600 space-y-1">
+                            <li>✔ Full access to the core training sessions</li>
+                            <li>✔ Build • Launch • Scale framework</li>
+                            <li>✔ All training materials and resources</li>
+                            <li>✔ Certificate of participation</li>
+                        </ul>
+
                     </button>
 
-                    <button onclick="selectPrice(20000)" class="w-full border rounded-xl p-4">
-                        ₦20,000 - Premium
+                    <!-- Premium -->
+                    <button onclick="selectPrice(20000)"
+                        class="w-full text-left border rounded-2xl p-5 hover:border-[#E31B23] hover:bg-red-50 transition">
+
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-semibold text-lg">Premium</h3>
+                            <span class="font-bold text-[#E31B23]">₦20,000</span>
+                        </div>
+
+                        <ul class="mt-3 text-sm text-gray-600 space-y-1">
+                            <li>✔ Everything in Regular</li>
+                            <li>✔ Exclusive templates and business tools</li>
+                            <li>✔ Priority Q&amp;A session</li>
+                            <li>✔ Networking with fellow participants</li>
+                        </ul>
+
                     </button>
 
-                    <button onclick="selectPrice(50000)" class="w-full border rounded-xl p-4">
-                        ₦50,000 - Ultimate
+                    <!-- Ultimate -->
+                    <button onclick="selectPrice(50000)"
+                        class="w-full text-left border-2 border-[#E31B23] rounded-2xl p-5 bg-red-50 relative hover:shadow-lg transition">
+
+                        <span
+                            class="absolute -top-3 right-5 bg-[#E31B23] text-white text-xs px-3 py-1 rounded-full font-semibold">
+                            BEST VALUE
+                        </span>
+
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-semibold text-lg">Ultimate</h3>
+                            <span class="font-bold text-[#E31B23]">₦50,000</span>
+                        </div>
+
+                        <ul class="mt-3 text-sm text-gray-600 space-y-1">
+                            <li>✔ Everything in Premium</li>
+                            <li>✔ 1-on-1 mentorship session</li>
+                            <li>✔ Personal business strategy review</li>
+                            <li>✔ Lifetime access to updates and bonus resources</li>
+                        </ul>
+
                     </button>
 
                 </div>
