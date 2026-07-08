@@ -63,6 +63,35 @@
             transition: all 0.2s ease;
         }
 
+        .slide {
+            opacity: 0;
+            transition: opacity .8s ease;
+            position: absolute;
+            inset: 0;
+        }
+
+        .slide.active {
+            opacity: 1;
+            position: relative;
+        }
+
+        .slide.hidden {
+            display: block;
+        }
+
+        .indicator{
+    width:10px;
+    height:10px;
+    border-radius:999px;
+    background:#d1d5db;
+    transition:.3s;
+}
+
+.indicator.active{
+    width:30px;
+    background:#E31B23;
+}
+
         html {
             scroll-behavior: smooth;
         }
@@ -219,14 +248,55 @@
                     </span>
 
                     <h2 class="heading-font text-4xl md:text-5xl font-bold mt-4 mb-6">
-                        Build. <span class="text-[#E31B23]">Launch.</span> Scale.
+                        Build. Launch. Scale.
                     </h2>
 
-                    <p class="text-xl md:text-2xl font-medium text-gray-900 leading-relaxed">
-                        Every successful business follows a journey. First, you build the right skills, mindset, and
-                        foundation. Next, you launch with clarity and confidence. Finally, you scale through proven
-                        marketing systems, strategic sales processes, and sustainable business growth.
-                    </p>
+                    <div class="relative min-h-[180px] md:min-h-[140px]">
+
+                        <div class="slide active">
+                            <p class="text-xl md:text-2xl font-medium text-gray-900 leading-relaxed">
+                                Join the <span class="text-[#E31B23] font-semibold">Exclusive Growth Training</span>.
+                                Learn the exact blueprints behind profitable information marketing,
+                                high-converting sales frameworks, and hyper-targeted Meta advertising.
+                            </p>
+                        </div>
+
+                        <div class="slide hidden">
+                            <p class="text-xl md:text-2xl font-medium text-gray-900 leading-relaxed">
+                                <span class="text-[#E31B23] font-semibold">Build</span> a solid
+                                foundation with the right mindset, practical skills, branding
+                                strategies, and business systems that position you for lasting
+                                success.
+                            </p>
+                        </div>
+
+                        <div class="slide hidden">
+                            <p class="text-xl md:text-2xl font-medium text-gray-900 leading-relaxed">
+                                <span class="text-[#E31B23] font-semibold">Launch</span> with
+                                confidence by learning how to create irresistible offers, attract
+                                your ideal audience, and introduce your products or services to the
+                                market successfully.
+                            </p>
+                        </div>
+
+                        <div class="slide hidden">
+                            <p class="text-xl md:text-2xl font-medium text-gray-900 leading-relaxed">
+                                <span class="text-[#E31B23] font-semibold">Scale</span> your business
+                                using proven marketing systems, strategic sales processes, automation,
+                                and sustainable growth strategies that generate consistent results.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="flex justify-center gap-2 mt-8">
+
+    <span class="indicator active"></span>
+    <span class="indicator"></span>
+    <span class="indicator"></span>
+    <span class="indicator"></span>
+
+</div>
 
                 </blockquote>
 
@@ -1111,6 +1181,27 @@
 
         // Boot the app
         window.onload = initializePage
+    </script>
+
+    <script>
+        const slides = document.querySelectorAll(".slide");
+        const indicators = document.querySelectorAll(".indicator");
+
+        let currentSlide = 0;
+
+        function changeSlide() {
+
+            slides[currentSlide].classList.remove("active");
+            indicators[currentSlide].classList.remove("active");
+
+            currentSlide = (currentSlide + 1) % slides.length;
+
+            slides[currentSlide].classList.add("active");
+            indicators[currentSlide].classList.add("active");
+
+        }
+
+        setInterval(changeSlide, 8000);
     </script>
 
 
