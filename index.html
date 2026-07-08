@@ -10,6 +10,7 @@
     <style>
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Dancing+Script:wght@400;700&display=swap');
@@ -79,18 +80,18 @@
             display: block;
         }
 
-        .indicator{
-    width:10px;
-    height:10px;
-    border-radius:999px;
-    background:#d1d5db;
-    transition:.3s;
-}
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: #d1d5db;
+            transition: .3s;
+        }
 
-.indicator.active{
-    width:30px;
-    background:#E31B23;
-}
+        .indicator.active {
+            width: 30px;
+            background: #E31B23;
+        }
 
         html {
             scroll-behavior: smooth;
@@ -291,12 +292,12 @@
 
                     <div class="flex justify-center gap-2 mt-8">
 
-    <span class="indicator active"></span>
-    <span class="indicator"></span>
-    <span class="indicator"></span>
-    <span class="indicator"></span>
+                        <span class="indicator active"></span>
+                        <span class="indicator"></span>
+                        <span class="indicator"></span>
+                        <span class="indicator"></span>
 
-</div>
+                    </div>
 
                 </blockquote>
 
@@ -880,47 +881,47 @@
                     Choose Your Package
                 </h3>
 
-                <div class="space-y-4">
+                <div class="grid grid-cols-2 gap-3">
 
                     <!-- Regular -->
                     <button onclick="selectPrice(10000)"
-                        class="w-full text-left border rounded-2xl p-5 hover:border-[#E31B23] hover:bg-red-50 transition">
+                        class="text-left border rounded-2xl p-4 hover:border-[#E31B23] hover:bg-red-50 transition">
 
-                        <div class="flex items-center justify-between">
-                            <h3 class="font-semibold text-lg">Regular</h3>
-                            <span class="font-bold text-[#E31B23]">₦10,000</span>
+                        <div>
+                            <h3 class="font-semibold">Regular</h3>
+                            <p class="text-[#E31B23] font-bold mt-1">₦10,000</p>
                         </div>
 
-                        <ul class="mt-3 text-sm text-gray-600 space-y-1">
-                            <li>✔ Full access to the core training sessions</li>
-                            <li>✔ Build • Launch • Scale framework</li>
-                            <li>✔ All training materials and resources</li>
-                            <li>✔ Certificate of participation</li>
+                        <ul class="mt-3 text-xs text-gray-600 space-y-1">
+                            <li>✔ Core training</li>
+                            <li>✔ BLS Framework</li>
+                            <li>✔ Training resources</li>
+                            <li>✔ Certificate</li>
                         </ul>
 
                     </button>
 
                     <!-- Premium -->
                     <button onclick="selectPrice(20000)"
-                        class="w-full text-left border rounded-2xl p-5 hover:border-[#E31B23] hover:bg-red-50 transition">
+                        class="text-left border rounded-2xl p-4 hover:border-[#E31B23] hover:bg-red-50 transition">
 
-                        <div class="flex items-center justify-between">
-                            <h3 class="font-semibold text-lg">Premium</h3>
-                            <span class="font-bold text-[#E31B23]">₦20,000</span>
+                        <div>
+                            <h3 class="font-semibold">Premium</h3>
+                            <p class="text-[#E31B23] font-bold mt-1">₦20,000</p>
                         </div>
 
-                        <ul class="mt-3 text-sm text-gray-600 space-y-1">
+                        <ul class="mt-3 text-xs text-gray-600 space-y-1">
                             <li>✔ Everything in Regular</li>
-                            <li>✔ Exclusive templates and business tools</li>
-                            <li>✔ Priority Q&amp;A session</li>
-                            <li>✔ Networking with fellow participants</li>
+                            <li>✔ Business templates</li>
+                            <li>✔ Priority Q&amp;A</li>
+                            <li>✔ Networking</li>
                         </ul>
 
                     </button>
 
                     <!-- Ultimate -->
                     <button onclick="selectPrice(50000)"
-                        class="w-full text-left border-2 border-[#E31B23] rounded-2xl p-5 bg-red-50 relative hover:shadow-lg transition">
+                        class="col-span-2 text-left border-2 border-[#E31B23] rounded-2xl p-5 bg-red-50 relative hover:shadow-lg transition">
 
                         <span
                             class="absolute -top-3 right-5 bg-[#E31B23] text-white text-xs px-3 py-1 rounded-full font-semibold">
