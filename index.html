@@ -1094,8 +1094,10 @@
             payNowButton.textContent = "Processing...";
 
             FlutterwaveCheckout({
-                public_key: "FLWPUBK_TEST-d5f037c2a78bd502141c34964799b98e-X", //test pk
-                // FLWPUBK-5eed267042fd4cdb04a3ffc7c4f6f3e0-X
+                public_key: "FLWPUBK-5eed267042fd4cdb04a3ffc7c4f6f3e0-X", // live pk
+
+                //"FLWPUBK_TEST-d5f037c2a78bd502141c34964799b98e-X", test pk
+
                 tx_ref: "aceline_" + Math.floor(Math.random() * 1000000000),
                 amount: selectedAmount,
                 currency: "NGN",
