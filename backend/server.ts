@@ -131,7 +131,7 @@ The Aceline Team`,
                 subject: `New Ticket Purchased - ${reference}`,
 
                 htmlContent: `
-        <h2>New Manual Payment</h2>
+        <h2>New Ticket Purchased</h2>
 
         <table cellpadding="8">
 
