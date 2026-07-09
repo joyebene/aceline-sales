@@ -100,6 +100,71 @@
             background: #E31B23;
         }
 
+        .success-check .circle {
+            stroke-dasharray: 251;
+            stroke-dashoffset: 251;
+            animation: drawCircle .8s ease forwards;
+        }
+
+        .success-check .check {
+            stroke-dasharray: 80;
+            stroke-dashoffset: 80;
+            animation: drawCheck .5s .7s ease forwards;
+        }
+
+        @keyframes drawCircle {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes drawCheck {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        #successModal {
+            animation: fadeIn .35s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .confetti {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .confetti::before,
+        .confetti::after {
+            content: "🎉 🎊 ✨ 🎉 🎊 ✨ 🎉 🎊";
+            position: absolute;
+            width: 100%;
+            top: -20px;
+            left: 0;
+            font-size: 24px;
+            animation: confetti 4s linear infinite;
+        }
+
+        @keyframes confetti {
+            from {
+                transform: translateY(-20px);
+            }
+
+            to {
+                transform: translateY(420px);
+            }
+        }
+
         html {
             scroll-behavior: smooth;
         }
@@ -844,7 +909,7 @@
         </div>
     </footer>
 
-    <!-- package option modal -->
+
     <!-- Package Modal -->
     <div id="packageModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
 
@@ -891,12 +956,12 @@
                 <div class="grid grid-cols-2 gap-3">
 
                     <!-- Regular -->
-                    <button onclick="selectPrice(500)"
+                    <button onclick="selectPrice(10000)"
                         class="text-left border rounded-2xl p-4 hover:border-[#E31B23] hover:bg-red-50 transition">
 
                         <div>
                             <h3 class="font-semibold">Regular</h3>
-                            <p class="text-[#E31B23] font-bold mt-1">₦500</p>
+                            <p class="text-[#E31B23] font-bold mt-1">₦10000</p>
                         </div>
 
                         <ul class="mt-3 text-xs text-gray-600 space-y-1">
@@ -953,28 +1018,74 @@
 
             </div>
 
-            <!-- STEP 3 -->
+
             <div id="step3" class="hidden">
 
-                <h3 class="font-semibold mb-5">
-                    Enter Your Details
-                </h3>
+                <h2 class="text-2xl font-bold mb-4">
+                    Bank Transfer
+                </h2>
 
-                <div class="space-y-4">
+                <div class="bg-gray-100 rounded-xl p-6 space-y-3">
 
-                    <input id="customerName" type="text" placeholder="Full Name" class="w-full border rounded-xl p-3">
+                    <p><strong>Bank:</strong> Guarantee Trust Bank</p>
 
-                    <input id="customerEmail" type="email" placeholder="Email Address"
-                        class="w-full border rounded-xl p-3">
+                    <p><strong>Account Name:</strong> ACELINE INTERNATIONAL LIMITED</p>
 
-                    <input id="customerPhone" type="text" placeholder="Phone Number"
-                        class="w-full border rounded-xl p-3">
+                    <p><strong>Account Number:</strong>0614893181</p>
+
+                    <p>
+                        <strong>Amount:</strong>
+                        ₦<span id="transferAmount"></span>
+                    </p>
+
+
+                    <p>
+                        <strong>Payment Reference:</strong>
+                    <div class="flex items-center gap-2 mt-2">
+                        <input id="generatedReference" readonly
+                            class="border rounded-lg px-3 py-2 w-full font-semibold bg-gray-50" placeholder="GR">
+
+                        <button type="button" onclick="copyReference()"
+                            class="bg-red-600 text-white px-4 py-2 rounded-lg">
+                            Copy
+                        </button>
+                    </div>
+                    </p>
+
+                    <p class="text-sm text-gray-500 mt-2">
+                        Please use this reference as your transfer narration.
+                    </p>
 
                 </div>
 
-                <button id="payNowButton" onclick="payNow()"
-                    class="w-full mt-6 bg-[#E31B23] text-white py-3 rounded-xl">
-                    Continue to Payment
+                <button onclick="showPaymentForm()" class="mt-6 bg-red-600 text-white px-6 py-3 rounded-xl">
+                    I Have Paid
+                </button>
+
+            </div>
+
+            <div id="step4" class="hidden">
+
+                <h2 class="text-2xl font-bold mb-6">
+                    Payment Confirmation
+                </h2>
+
+                <input id="customerName" placeholder="Full Name" class="w-full border p-3 rounded-lg mb-4">
+
+                <input id="customerEmail" placeholder="Email" class="w-full border p-3 rounded-lg mb-4">
+
+                <input id="customerPhone" placeholder="Phone Number" class="w-full border p-3 rounded-lg mb-4">
+
+                <input id="amountPaid" readonly class="w-full border p-3 rounded-lg mb-4" placeholder="Amount Paid">
+
+                <input id="paymentReceipt" type="file" accept="image/*,.pdf" class="w-full border p-3 rounded-lg mb-6"
+                    placeholder="payment recipet" required>
+
+                <button id="submitPaymentBtn" onclick="submitManualPayment()"
+                    class="bg-red-600 text-white w-full py-3 rounded-xl">
+
+                    Submit Payment
+
                 </button>
 
             </div>
@@ -989,63 +1100,84 @@
 
     </div>
 
-    <!-- TAILWIND SCRIPT -->
-    <script src="https://checkout.flutterwave.com/v3.js"></script>
+    <!-- Success Popup -->
+    <div id="successModal"
+        class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden items-center justify-center z-[9999]">
+
+        <div class="relative bg-white rounded-3xl p-10 w-[92%] max-w-md text-center overflow-hidden">
+
+            <!-- Confetti -->
+            <div class="confetti"></div>
+
+            <!-- Animated Check -->
+            <div class="mb-6 flex justify-center">
+                <svg class="success-check block" width="90" height="90" viewBox="0 0 90 90">
+
+                    <circle class="circle" cx="45" cy="45" r="40" fill="none" stroke="#22c55e" stroke-width="5" />
+
+                    <path class="check" fill="none" stroke="#22c55e" stroke-width="6" d="M25 46 L40 60 L65 30" />
+                </svg>
+            </div>
+
+            <h2 class="text-3xl font-bold mb-3">
+                🎉 Congratulations!
+            </h2>
+
+            <p class="text-gray-600 leading-relaxed mb-8">
+                Your payment has been submitted successfully.
+
+                <br><br>
+
+                Our team will verify your payment shortly and you'll receive a confirmation email with the next steps.
+            </p>
+
+            <button onclick="closeSuccessModal()"
+                class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-xl font-semibold">
+                Awesome!
+            </button>
+
+        </div>
+    </div>
+
     <script>
-        function initializeTailwind() {
-            tailwind.config = {
-                content: [],
-                theme: {
-                    extend: {}
-                }
-            }
-        }
 
-        // Mobile menu
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu')
-            menu.classList.toggle('hidden')
-        }
+        const slides = document.querySelectorAll(".slide");
+        const indicators = document.querySelectorAll(".indicator");
 
-        // Initialize mobile menu button
-        function initMobileMenu() {
-            const btn = document.getElementById('mobile-menu-btn')
-            btn.addEventListener('click', toggleMobileMenu)
-        }
+        let currentSlide = 0;
 
-        // Accordion
-        function toggleAccordion(el) {
-            const content = el.nextElementSibling
-            const allContents = document.querySelectorAll('.accordion-content')
-            const allButtons = document.querySelectorAll('.faq-question')
-
-            // Close all others
-            allContents.forEach(c => {
-                if (c !== content) c.style.maxHeight = null
-            })
-            allButtons.forEach(b => {
-                if (b !== el) b.lastElementChild.textContent = '+'
-            })
-
-            // Toggle this one
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null
-                el.lastElementChild.textContent = '+'
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px"
-                el.lastElementChild.textContent = '−'
-            }
-        }
-
-
-
-        // Paystack purchase flow
         let selectedProgram = "";
         let selectedTraining = "";
         let selectedAmount = 0;
 
-        function openPackageModal(program) {
+        let paymentReference = "";
 
+        function generatePaymentReference() {
+            const now = new Date();
+
+            const date =
+                now.getFullYear().toString() +
+                String(now.getMonth() + 1).padStart(2, "0") +
+                String(now.getDate()).padStart(2, "0");
+
+            const random = Math.floor(100000 + Math.random() * 900000);
+
+            return `ACL-${date}-${random}`;
+        }
+
+        function copyReference() {
+            const input = document.getElementById("generatedReference");
+
+            input.select();
+            input.setSelectionRange(0, 99999);
+
+            navigator.clipboard.writeText(input.value);
+
+            alert("Payment reference copied!");
+        }
+
+
+        function openPackageModal(program) {
             selectedProgram = program;
 
             document.getElementById("packageModal").classList.remove("hidden");
@@ -1054,150 +1186,31 @@
             document.getElementById("step1").classList.remove("hidden");
             document.getElementById("step2").classList.add("hidden");
             document.getElementById("step3").classList.add("hidden");
-
+            document.getElementById("step4").classList.add("hidden");
         }
 
         function closeModal() {
-
             document.getElementById("packageModal").classList.add("hidden");
             document.getElementById("packageModal").classList.remove("flex");
-
         }
 
         function selectTraining(type) {
-
             selectedTraining = type;
 
             document.getElementById("step1").classList.add("hidden");
             document.getElementById("step2").classList.remove("hidden");
-
         }
 
         function selectPrice(price) {
-
             selectedAmount = price;
 
+            paymentReference = generatePaymentReference();
+
             document.getElementById("step2").classList.add("hidden");
-            document.getElementById("step3").classList.remove("hidden");
+
+            showBankTransfer();
 
         }
-
-        function payNow() {
-
-            const name = document.getElementById("customerName").value;
-            const email = document.getElementById("customerEmail").value;
-            const phone = document.getElementById("customerPhone").value;
-
-            if (!name || !email || !phone) {
-
-                alert("Please complete all fields.");
-
-                return;
-
-            }
-
-            const payNowButton = document.getElementById("payNowButton");
-            payNowButton.disabled = true;
-            payNowButton.textContent = "Processing...";
-
-            FlutterwaveCheckout({
-                public_key: "FLWPUBK-5eed267042fd4cdb04a3ffc7c4f6f3e0-X", // live pk
-
-                //"FLWPUBK_TEST-d5f037c2a78bd502141c34964799b98e-X", test pk
-
-                tx_ref: "aceline_" + Math.floor(Math.random() * 1000000000),
-                amount: selectedAmount,
-                currency: "NGN",
-                payment_options: "card,mobilemoney,ussd",
-                customer: {
-                    email: email,
-                    phone_number: phone,
-                    name: name,
-                },
-                customizations: {
-                    title: "Aceline Growth Training",
-                    description: "Payment for " + selectedProgram + " - " + selectedTraining,
-                    logo: "https://acelinebrand.com/logo/img%20(5).jpg",
-                },
-                callback: async function (response) {
-                    payNowButton.disabled = false;
-                    payNowButton.textContent = "Continue to Payment";
-                    if (response.status === "successful") {
-                        alert("Payment Successful! Transaction ID: " + response.transaction_id);
-                        closeModal();
-
-                        try {
-                            const backendResponse = await fetch('https://aceline-sales.onrender.com/api/payment-success', {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({
-                                    name, email, phone, program: selectedProgram, training: selectedTraining,
-                                    amount: selectedAmount, transaction_id: response.transaction_id,
-                                    flw_ref: response.flw_ref, status: response.status
-                                }),
-                            });
-
-                            const data = await backendResponse.json();
-                            if (backendResponse.ok) {
-                                console.log('Backend success:', data.message);
-                            } else {
-                                console.error('Backend error:', data.message);
-                                alert('Error processing payment on backend. Please contact support.');
-                            }
-                        } catch (error) {
-                            console.error('Error communicating with backend:', error);
-                            alert('Network error. Please contact support.');
-                        }
-                    } else {
-                        alert("Payment Failed. Please try again.");
-                    }
-                },
-                onclose: function () {
-                    payNowButton.disabled = false;
-                    payNowButton.textContent = "Continue to Payment";
-                    console.log("Payment modal closed.");
-                },
-            });
-
-
-        }
-
-        // Keyboard shortcuts
-        function handleKeyboard(e) {
-            if (e.metaKey && e.key === "k") {
-                e.preventDefault()
-                alert("Command palette would appear here (demo)")
-            }
-        }
-
-        // Initialize everything
-        function initializePage() {
-            initializeTailwind()
-            initMobileMenu()
-
-            // Add keyboard listener
-            document.addEventListener('keydown', handleKeyboard)
-
-            // Make first accordion open by default
-            setTimeout(() => {
-                const firstBtn = document.querySelector('.faq-question')
-                if (firstBtn) {
-                    firstBtn.click()
-                }
-            }, 800)
-
-            console.log('%c✅ Aceline landing page initialized successfully', 'color:#E31B23; font-size:13px')
-        }
-
-        // Boot the app
-        window.onload = initializePage
-    </script>
-
-    <script>
-        const slides = document.querySelectorAll(".slide");
-        const indicators = document.querySelectorAll(".indicator");
-
-        let currentSlide = 0;
 
         function changeSlide() {
 
@@ -1212,6 +1225,129 @@
         }
 
         setInterval(changeSlide, 8000);
+
+        function showBankTransfer() {
+
+            document.getElementById("step3").classList.remove("hidden");
+            document.getElementById("step4").classList.add("hidden");
+
+            document.getElementById("transferAmount").innerText =
+                selectedAmount.toLocaleString();
+
+            document.getElementById("generatedReference").value =
+                paymentReference;
+
+        }
+
+        function showPaymentForm() {
+
+            document.getElementById("step3").classList.add("hidden");
+            document.getElementById("step4").classList.remove("hidden");
+
+            document.getElementById("amountPaid").value =
+                "₦" + selectedAmount.toLocaleString();
+
+        }
+
+        async function submitManualPayment() {
+
+            const button = document.getElementById("submitPaymentBtn");
+
+            button.disabled = true;
+            button.innerHTML = `
+        <span class="inline-flex items-center gap-2">
+            <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4">
+                </circle>
+
+                <path class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v8z">
+                </path>
+            </svg>
+
+            Processing...
+        </span>
+    `;
+
+            try {
+
+                const formData = new FormData();
+
+                formData.append("name", document.getElementById("customerName").value);
+                formData.append("email", document.getElementById("customerEmail").value);
+                formData.append("phone", document.getElementById("customerPhone").value);
+                formData.append("program", selectedProgram);
+                formData.append("training", selectedTraining);
+                formData.append("amount", selectedAmount);
+                formData.append("reference", paymentReference);
+
+                formData.append(
+                    "receipt",
+                    document.getElementById("paymentReceipt").files[0]
+                );
+
+                const response = await fetch(
+                    "https://aceline.onrender.com/api/api/manual-payment",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                );
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message);
+                }
+
+                button.innerHTML = "Payment Submitted ✓";
+
+
+                closeModal();
+
+                showSuccessModal();
+
+            } catch (err) {
+
+                alert(err.message || "Something went wrong.");
+
+                button.disabled = false;
+                button.innerHTML = "Submit Payment";
+
+            }
+
+        }
+
+        function showSuccessModal() {
+            document
+                .getElementById("successModal")
+                .classList.remove("hidden");
+
+            document
+                .getElementById("successModal")
+                .classList.add("flex");
+
+            setTimeout(() => {
+                closeSuccessModal();
+            }, 8000);
+        }
+
+        function closeSuccessModal() {
+            document
+                .getElementById("successModal")
+                .classList.add("hidden");
+
+            document
+                .getElementById("successModal")
+                .classList.remove("flex");
+        }
     </script>
 
 
