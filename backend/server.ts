@@ -70,7 +70,7 @@ app.post('/api/manual-payment', upload.single("receipt"), async (req: Request, r
                         name: name,
                     },
                 ],
-                subject: "Payment Received - Aceline Growth Training",
+                subject: "Payment in Process - Aceline Growth Training",
 
                 htmlContent: `
 <h2>Payment Submission Received</h2>
