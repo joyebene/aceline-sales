@@ -123,7 +123,7 @@ The Aceline Team`,
 
                 to: [
                     {
-                        email: "info@acelinebrand.com",
+                        email: "acelineintl@gmail.com",
                         name: "Aceline Admin",
                     },
                 ],
