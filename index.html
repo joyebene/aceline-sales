@@ -1018,8 +1018,30 @@
 
             </div>
 
-
+            <!-- STEP 3 -->
             <div id="step3" class="hidden">
+
+                <h2 class="text-2xl font-bold mb-6">
+                    Your Information
+                </h2>
+
+                <input id="customerName" placeholder="Full Name" class="w-full border p-3 rounded-lg mb-4">
+
+                <input id="customerEmail" type="email" placeholder="Email Address"
+                    class="w-full border p-3 rounded-lg mb-4">
+
+                <input id="customerPhone" placeholder="Phone Number" class="w-full border p-3 rounded-lg mb-6">
+
+                <button onclick="proceedToPayment()" class="w-full bg-red-600 text-white py-3 rounded-xl">
+
+                    Proceed to Payment
+
+                </button>
+
+            </div>
+
+
+            <div id="step4" class="hidden">
 
                 <h2 class="text-2xl font-bold mb-4">
                     Bank Transfer
@@ -1031,7 +1053,27 @@
 
                     <p><strong>Account Name:</strong> ACELINE INTERNATIONAL LIMITED</p>
 
-                    <p><strong>Account Number:</strong>0614893181</p>
+                    <div>
+
+                        <p class="font-semibold mb-2">
+                            Account Number
+                        </p>
+
+                        <div class="flex gap-2">
+
+                            <input id="accountNumber" value="0614893181" readonly
+                                class="flex-1 border rounded-lg px-4 py-3 font-bold text-lg bg-gray-50">
+
+                            <button type="button" onclick="copyAccountNumber()"
+                                class="bg-red-600 text-white px-4 rounded-lg">
+
+                                Copy
+
+                            </button>
+
+                        </div>
+
+                    </div>
 
                     <p>
                         <strong>Amount:</strong>
@@ -1043,7 +1085,7 @@
                         <strong>Payment Reference:</strong>
                     <div class="flex items-center gap-2 mt-2">
                         <input id="generatedReference" readonly
-                            class="border rounded-lg px-3 py-2 w-full font-semibold bg-gray-50" placeholder="GR">
+                            class="border rounded-lg px-3 py-2 w-full font-semibold bg-gray-50 italic text-gray-500" placeholder="GR">
 
                         <button type="button" onclick="copyReference()"
                             class="bg-red-600 text-white px-4 py-2 rounded-lg">
@@ -1064,17 +1106,11 @@
 
             </div>
 
-            <div id="step4" class="hidden">
+            <div id="step5" class="hidden">
 
                 <h2 class="text-2xl font-bold mb-6">
                     Payment Confirmation
                 </h2>
-
-                <input id="customerName" placeholder="Full Name" class="w-full border p-3 rounded-lg mb-4">
-
-                <input id="customerEmail" placeholder="Email" class="w-full border p-3 rounded-lg mb-4">
-
-                <input id="customerPhone" placeholder="Phone Number" class="w-full border p-3 rounded-lg mb-4">
 
                 <input id="amountPaid" readonly class="w-full border p-3 rounded-lg mb-4" placeholder="Amount Paid">
 
@@ -1176,6 +1212,16 @@
             alert("Payment reference copied!");
         }
 
+        function copyAccountNumber() {
+
+            const account = document.getElementById("accountNumber").value;
+
+            navigator.clipboard.writeText(account);
+
+            alert("Account number copied!");
+
+        }
+
 
         function openPackageModal(program) {
             selectedProgram = program;
@@ -1187,6 +1233,7 @@
             document.getElementById("step2").classList.add("hidden");
             document.getElementById("step3").classList.add("hidden");
             document.getElementById("step4").classList.add("hidden");
+            document.getElementById("step5").classList.add("hidden");
         }
 
         function closeModal() {
@@ -1207,7 +1254,23 @@
             paymentReference = generatePaymentReference();
 
             document.getElementById("step2").classList.add("hidden");
+            document.getElementById("step3").classList.remove("hidden");
 
+        }
+
+        function proceedToPayment() {
+
+            const name = document.getElementById("customerName").value.trim();
+            const email = document.getElementById("customerEmail").value.trim();
+            const phone = document.getElementById("customerPhone").value.trim();
+
+            if (!name || !email || !phone) {
+                alert("Please complete all fields.");
+                return;
+            }
+
+            document.getElementById("step3").classList.add("hidden");
+            
             showBankTransfer();
 
         }
@@ -1228,8 +1291,8 @@
 
         function showBankTransfer() {
 
-            document.getElementById("step3").classList.remove("hidden");
-            document.getElementById("step4").classList.add("hidden");
+            document.getElementById("step4").classList.remove("hidden");
+            document.getElementById("step5").classList.add("hidden");
 
             document.getElementById("transferAmount").innerText =
                 selectedAmount.toLocaleString();
@@ -1241,8 +1304,8 @@
 
         function showPaymentForm() {
 
-            document.getElementById("step3").classList.add("hidden");
-            document.getElementById("step4").classList.remove("hidden");
+            document.getElementById("step4").classList.add("hidden");
+            document.getElementById("step5").classList.remove("hidden");
 
             document.getElementById("amountPaid").value =
                 "₦" + selectedAmount.toLocaleString();
