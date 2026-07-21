@@ -71,6 +71,9 @@ app.post('/api/verify-payment', async (req: Request, res: Response) => {
 
         const data = response.data.data;
 
+        console.log(data);
+        
+
         if (data.status === "success") {
             const paymentDate = new Date().toLocaleString("en-NG", {
                 timeZone: "Africa/Lagos",
