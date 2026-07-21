@@ -108,7 +108,7 @@ async function sendPaymentEmails(
     receipt?: any
 ) {
     // 1. Email to Customer
-    await brevo.transactionalEmails.sendTransacEmail({
+    const res = await brevo.transactionalEmails.sendTransacEmail({
         sender: {
             email: process.env.BREVO_FROM_EMAIL!,
             name: process.env.BREVO_FROM_NAME!,
@@ -129,8 +129,11 @@ async function sendPaymentEmails(
         `,
     });
 
+    console.log(res);
+    
+
     // 2. Email to Admin
-    await brevo.transactionalEmails.sendTransacEmail({
+   const response =  await brevo.transactionalEmails.sendTransacEmail({
         sender: {
             email: process.env.BREVO_FROM_EMAIL!,
             name: process.env.BREVO_FROM_NAME!,
@@ -155,6 +158,8 @@ async function sendPaymentEmails(
             content: receipt.buffer.toString("base64"),
         }] : undefined,
     });
+
+    console.log(response);
 }
 
 async function sendToFormspree(
@@ -183,7 +188,10 @@ async function sendToFormspree(
         form.append("payment_method", method);
         form.append("payment_date", paymentDate);
 
-        await axios.post(endpoint, form, { headers: form.getHeaders() });
+       const response =  await axios.post(endpoint, form, { headers: form.getHeaders() });
+
+       console.log(response);
+       
     } catch (err: any) {
         console.error("Formspree error:", err?.message);
     }
