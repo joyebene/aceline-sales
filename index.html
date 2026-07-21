@@ -545,7 +545,7 @@
             </div>
 
             <div class="flex justify-between items-end mt-6 sm:mt-8 md:mt-20 w-full">
-                <button onclick="openPackageModal('Brand Growth Blueprint')"
+                <button onclick="openPackageModal('Build, Launch, and Scale')"
                     class="px-6 py-2 bg-[#1A1A1A] hover:bg-black text-white rounded-3xl w-full mx-auto sm:w-1/3">
                     Apply Now
                 </button>
@@ -634,7 +634,7 @@
                     </div>
 
                     <div class="flex justify-between items-end mt-6 sm:mt-8 md:mt-10 w-full">
-                        <button onclick="openPackageModal('Brand Growth Blueprint')"
+                        <button onclick="openPackageModal('Build, Lauch, and Scale')"
                             class="px-6 py-2 bg-[#1A1A1A] hover:bg-black text-white rounded-3xl w-full sm:w-1/3">
                             Apply Now
                         </button>
@@ -977,7 +977,7 @@
                     <button onclick="selectPrice(20000)"
                         class="text-left border rounded-2xl p-4 hover:border-[#E31B23] hover:bg-red-50 transition border-2 border-amber-500 relative">
 
-                         <span
+                        <span
                             class="absolute -top-3 right-5 bg-amber-600 text-white text-xs px-3 py-1 rounded-full font-semibold">
                             Popular
                         </span>
@@ -1066,8 +1066,7 @@
 
                         <div class="flex gap-2">
 
-                            <input id="accountNumber" value="0614893181" readonly
-                            placeholder="Account Number"
+                            <input id="accountNumber" value="0614893181" readonly placeholder="Account Number"
                                 class="border rounded-lg px-3 py-2 font-bold text-lg bg-gray-50 w-full">
 
                             <button type="button" onclick="copyAccountNumber()"
@@ -1091,7 +1090,8 @@
                         <strong>Payment Reference:</strong>
                     <div class="flex items-center gap-2 mt-2">
                         <input id="generatedReference" readonly
-                            class="border rounded-lg px-3 py-2 w-full font-semibold bg-gray-50 italic text-gray-500" placeholder="GR">
+                            class="border rounded-lg px-3 py-2 w-full font-semibold bg-gray-50 italic text-gray-500"
+                            placeholder="GR">
 
                         <button type="button" onclick="copyReference()"
                             class="bg-red-600 text-white px-4 py-2 rounded-lg text-sm">
@@ -1181,60 +1181,24 @@
         </div>
     </div>
 
-    <script>
+    <!-- Paystack Script -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
 
+    <script>
         const slides = document.querySelectorAll(".slide");
         const indicators = document.querySelectorAll(".indicator");
 
         let currentSlide = 0;
-
         let selectedProgram = "";
         let selectedTraining = "";
         let selectedAmount = 0;
 
-        let paymentReference = "";
-
-        function generatePaymentReference() {
-            const now = new Date();
-
-            const date =
-                now.getFullYear().toString() +
-                String(now.getMonth() + 1).padStart(2, "0") +
-                String(now.getDate()).padStart(2, "0");
-
-            const random = Math.floor(100000 + Math.random() * 900000);
-
-            return `ACL-${date}-${random}`;
-        }
-
-        function copyReference() {
-            const input = document.getElementById("generatedReference");
-
-            input.select();
-            input.setSelectionRange(0, 99999);
-
-            navigator.clipboard.writeText(input.value);
-
-            alert("Payment reference copied!");
-        }
-
-        function copyAccountNumber() {
-
-            const account = document.getElementById("accountNumber").value;
-
-            navigator.clipboard.writeText(account);
-
-            alert("Account number copied!");
-
-        }
-
-
         function openPackageModal(program) {
             selectedProgram = program;
-
             document.getElementById("packageModal").classList.remove("hidden");
             document.getElementById("packageModal").classList.add("flex");
 
+            // Reset steps
             document.getElementById("step1").classList.remove("hidden");
             document.getElementById("step2").classList.add("hidden");
             document.getElementById("step3").classList.add("hidden");
@@ -1249,159 +1213,100 @@
 
         function selectTraining(type) {
             selectedTraining = type;
-
             document.getElementById("step1").classList.add("hidden");
             document.getElementById("step2").classList.remove("hidden");
         }
 
         function selectPrice(price) {
             selectedAmount = price;
-
-            paymentReference = generatePaymentReference();
-
             document.getElementById("step2").classList.add("hidden");
             document.getElementById("step3").classList.remove("hidden");
-
         }
 
         function proceedToPayment() {
-
             const name = document.getElementById("customerName").value.trim();
             const email = document.getElementById("customerEmail").value.trim();
             const phone = document.getElementById("customerPhone").value.trim();
 
             if (!name || !email || !phone) {
-                alert("Please complete all fields.");
+                alert("Please fill all fields");
                 return;
             }
 
-            document.getElementById("step3").classList.add("hidden");
-            
-            showBankTransfer();
-
+            // Initialize Paystack
+            payWithPaystack(name, email, phone);
         }
 
-        function changeSlide() {
+        function payWithPaystack(name, email, phone) {
+            const handler = PaystackPop.setup({
+                key: 'pk_live_1cf174fc3d54f04c32f3da68d5b295c1f2545457',
+                email: email,
+                amount: selectedAmount * 100, // Amount in kobo
+                currency: "NGN",
+                ref: 'ACL-' + Math.floor((Math.random() * 1000000000) + 1),
+                metadata: {
+                    custom_fields: [
+                        {
+                            display_name: "Program",
+                            variable_name: "program",
+                            value: selectedProgram
+                        },
+                        {
+                            display_name: "Training",
+                            variable_name: "training",
+                            value: selectedTraining
+                        },
+                        {
+                            display_name: "Customer Name",
+                            variable_name: "name",
+                            value: name
+                        }
+                    ]
+                },
+                onClose: function () {
+                    alert('Transaction cancelled.');
+                },
+                callback: function (response) {
+                    // Send payment details to backend for verification
+                    verifyPayment(response.reference, name, email, phone);
+                }
+            });
 
-            slides[currentSlide].classList.remove("active");
-            indicators[currentSlide].classList.remove("active");
-
-            currentSlide = (currentSlide + 1) % slides.length;
-
-            slides[currentSlide].classList.add("active");
-            indicators[currentSlide].classList.add("active");
-
+            handler.openIframe();
         }
 
-        setInterval(changeSlide, 8000);
-
-        function showBankTransfer() {
-
-            document.getElementById("step4").classList.remove("hidden");
-            document.getElementById("step5").classList.add("hidden");
-
-            document.getElementById("transferAmount").innerText =
-                selectedAmount.toLocaleString();
-
-            document.getElementById("generatedReference").value =
-                paymentReference;
-
-        }
-
-        function showPaymentForm() {
-
-            document.getElementById("step4").classList.add("hidden");
-            document.getElementById("step5").classList.remove("hidden");
-
-            document.getElementById("amountPaid").value =
-                "₦" + selectedAmount.toLocaleString();
-
-        }
-
-        async function submitManualPayment() {
-
-            const button = document.getElementById("submitPaymentBtn");
-
-            button.disabled = true;
-            button.innerHTML = `
-        <span class="inline-flex items-center gap-2">
-            <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg"
-                fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    stroke-width="4">
-                </circle>
-
-                <path class="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8v8z">
-                </path>
-            </svg>
-
-            Processing...
-        </span>
-    `;
-
+        async function verifyPayment(reference, name, email, phone) {
             try {
-
-                const formData = new FormData();
-
-                formData.append("name", document.getElementById("customerName").value);
-                formData.append("email", document.getElementById("customerEmail").value);
-                formData.append("phone", document.getElementById("customerPhone").value);
-                formData.append("program", selectedProgram);
-                formData.append("training", selectedTraining);
-                formData.append("amount", selectedAmount);
-                formData.append("reference", paymentReference);
-
-                formData.append(
-                    "receipt",
-                    document.getElementById("paymentReceipt").files[0]
-                );
-
-                const response = await fetch(
-                    "https://aceline-sales.onrender.com/api/manual-payment",
-                    {
-                        method: "POST",
-                        body: formData
-                    }
-                );
+                const response = await fetch("https://aceline-sales.onrender.com/api/verify-payment", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        reference,
+                        name,
+                        email,
+                        phone,
+                        program: selectedProgram,
+                        training: selectedTraining,
+                        amount: selectedAmount
+                    })
+                });
 
                 const data = await response.json();
 
-                if (!response.ok) {
-                    throw new Error(data.message);
+                if (data.success) {
+                    closeModal();
+                    showSuccessModal();
+                } else {
+                    alert(data.message || "Payment verification failed.");
                 }
-
-                button.innerHTML = "Payment Submitted ✓";
-
-
-                closeModal();
-
-                showSuccessModal();
-
             } catch (err) {
-
-                alert(err.message || "Something went wrong.");
-
-                button.disabled = false;
-                button.innerHTML = "Submit Payment";
-
+                alert("Error verifying payment. Please contact support.");
             }
-
         }
 
         function showSuccessModal() {
-            document
-                .getElementById("successModal")
-                .classList.remove("hidden");
-
-            document
-                .getElementById("successModal")
-                .classList.add("flex");
+            document.getElementById("successModal").classList.remove("hidden");
+            document.getElementById("successModal").classList.add("flex");
 
             setTimeout(() => {
                 closeSuccessModal();
@@ -1409,14 +1314,19 @@
         }
 
         function closeSuccessModal() {
-            document
-                .getElementById("successModal")
-                .classList.add("hidden");
-
-            document
-                .getElementById("successModal")
-                .classList.remove("flex");
+            document.getElementById("successModal").classList.add("hidden");
+            document.getElementById("successModal").classList.remove("flex");
         }
+
+        // Auto slide
+        function changeSlide() {
+            slides[currentSlide].classList.remove("active");
+            indicators[currentSlide].classList.remove("active");
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add("active");
+            indicators[currentSlide].classList.add("active");
+        }
+        setInterval(changeSlide, 8000);
     </script>
 
 

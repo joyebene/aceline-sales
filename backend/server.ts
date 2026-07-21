@@ -15,40 +15,22 @@ const brevo = new BrevoClient({
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const upload = multer({
-    storage: multer.memoryStorage(),
-});
+const upload = multer({ storage: multer.memoryStorage() });
 
 // Middleware
-app.use(express.json()); // For parsing application/json
-app.use(cors()); // Enable CORS for all routes
+app.use(express.json());
+app.use(cors());
 
-// API endpoint for handling successful payments
+// ===================== MANUAL PAYMENT =====================
 app.post('/api/manual-payment', upload.single("receipt"), async (req: Request, res: Response) => {
     const { name, email, phone, program, training, amount, reference } = req.body;
-
     const receipt = req.file;
 
-    if (
-        !name ||
-        !email ||
-        !phone ||
-        !program ||
-        !training ||
-        !amount ||
-        !reference
-    ) {
-        return res.status(400).json({
-            success: false,
-            message: "Please complete all required fields.",
-        });
+    if (!name || !email || !phone || !program || !training || !amount || !reference) {
+        return res.status(400).json({ success: false, message: "Please complete all required fields." });
     }
-
     if (!receipt) {
-        return res.status(400).json({
-            success: false,
-            message: "Please upload your payment receipt.",
-        });
+        return res.status(400).json({ success: false, message: "Please upload your payment receipt." });
     }
 
     const paymentDate = new Date().toLocaleString("en-NG", {
@@ -58,199 +40,156 @@ app.post('/api/manual-payment', upload.single("receipt"), async (req: Request, r
     });
 
     try {
-        try {
-            await brevo.transactionalEmails.sendTransacEmail({
-                sender: {
-                    email: process.env.BREVO_FROM_EMAIL!,
-                    name: process.env.BREVO_FROM_NAME!,
-                },
-                to: [
-                    {
-                        email: email,
-                        name: name,
-                    },
-                ],
-                subject: "Payment In Process - Aceline Growth Training",
+        await sendPaymentEmails(name, email, program, training, amount, reference, paymentDate, receipt.fieldname);
+        await sendToFormspree(name, email, phone, program, training, amount, reference, paymentDate, "Bank Transfer");
 
-                htmlContent: `
-<h2>Payment Submission Received</h2>
-
-<p>Dear <strong>${name}</strong>,</p>
-
-<p>
-Thank you for submitting your payment for the
-<strong>${program}</strong>.
-</p>
-
-<p>Your payment details have been received successfully.</p>
-
-<table cellpadding="8">
-<tr><td><strong>Program</strong></td><td>${program}</td></tr>
-<tr><td><strong>Training</strong></td><td>${training}</td></tr>
-<tr><td><strong>Amount</strong></td><td>₦${Number(amount).toLocaleString()}</td></tr>
-<tr><td><strong>Reference</strong></td><td>${reference}</td></tr>
-<tr><td><strong>Date Submitted</strong></td><td>${paymentDate}</td></tr>
-</table>
-
-<p>
-Our finance team will verify your bank transfer shortly.
-Once confirmed, you will receive another email confirming your enrollment.
-</p>
-
-<p>
-Thank you for choosing Aceline International Limited.
-</p>
-`,
-                textContent: `Dear ${name},
-Thank you for your payment for the Aceline Growth Training!
-Here are your payment details:
-Program: ${program}
-Training Type: ${training}
-Amount Paid: NGN ${amount}
-Reference: ${reference}
-Email: ${email}
-Phone: ${phone}
-We will be in touch shortly with details on how to access your training.
-Best regards,
-The Aceline Team`,
-            });
-
-            await brevo.transactionalEmails.sendTransacEmail({
-                sender: {
-                    email: process.env.BREVO_FROM_EMAIL!,
-                    name: process.env.BREVO_FROM_NAME!,
-                },
-
-                to: [
-                    {
-                        email: "acelineintl@gmail.com",
-                        name: "Aceline Admin",
-                    },
-                ],
-
-                subject: `New Ticket Purchased - ${reference}`,
-
-                htmlContent: `
-        <h2>New Ticket Purchased</h2>
-
-        <table cellpadding="8">
-
-        <tr>
-        <td><strong>Name</strong></td>
-        <td>${name}</td>
-        </tr>
-
-        <tr>
-        <td><strong>Email</strong></td>
-        <td>${email}</td>
-        </tr>
-
-        <tr>
-        <td><strong>Phone</strong></td>
-        <td>${phone}</td>
-        </tr>
-
-        <tr>
-        <td><strong>Program</strong></td>
-        <td>${program}</td>
-        </tr>
-
-        <tr>
-        <td><strong>Training</strong></td>
-        <td>${training}</td>
-        </tr>
-
-        <tr>
-        <td><strong>Amount</strong></td>
-        <td>₦${Number(amount).toLocaleString()}</td>
-        </tr>
-
-        <tr>
-        <td><strong>Reference</strong></td>
-        <td>${reference}</td>
-        </tr>
-
-        <tr>
-        <td><strong>Submitted</strong></td>
-        <td>${paymentDate}</td>
-        </tr>
-
-        </table>
-
-        <p>The customer's receipt is attached.</p>
-    `,
-
-                attachment: [
-                    {
-                        name: receipt.originalname,
-                        content: receipt.buffer.toString("base64"),
-                    },
-                ],
-            });
-
-            console.log('Email sent successfully via Brevo for transaction:', reference);
-        } catch (brevoError: any) {
-            console.error('Error sending email via Brevo:', brevoError.body || brevoError.message);
-            // Decide if you want to return an error here or continue with other steps
-        }
-
-        // 3. Store payment details (example: log to console, integrate with a CRM/DB here)
-        console.log('Storing payment details:', {
-            name, email, phone, program, training, amount, reference,
-        });
-
-        // 4. Send client details to a third-party form service
-        const formspreeEndpoint = process.env.FORMSPREE_ENDPOINT;
-
-        if (formspreeEndpoint) {
-            try {
-                const form = new FormData();
-
-                form.append("name", name);
-                form.append("email", email);
-                form.append("phone", phone);
-                form.append("program", program);
-                form.append("training", training);
-                form.append("amount", amount);
-                form.append("reference", reference);
-                form.append("payment_method", "Bank Transfer");
-                form.append("payment_date", paymentDate);
-
-                await axios.post(
-                    process.env.FORMSPREE_ENDPOINT!,
-                    form,
-                    {
-                        headers: form.getHeaders(),
-                    }
-                );
-
-                console.log("Customer data sent to Formspree successfully.");
-            } catch (err: any) {
-                console.error(
-                    "Failed to send customer data to Formspree:",
-                    err?.response?.data || err?.message!
-                );
-            }
-        } else {
-            console.warn("FORMSPREE_ENDPOINT is missing.");
-        }
         return res.status(200).json({
             success: true,
-            message:
-                "Your payment details have been received successfully. We will verify your transfer and contact you shortly.",
+            message: "Your payment details have been received successfully.",
         });
-
-
     } catch (error: any) {
-        console.error('Error processing payment:', error.message);
-        if (error.response) {
-            console.error('Flutterwave API error:', error.response.data);
-        }
-        res.status(500).json({ success: false, message: 'Internal server error during payment processing.' });
+        console.error('Error processing manual payment:', error.message);
+        res.status(500).json({ success: false, message: 'Internal server error.' });
     }
 });
 
-// Start the server
+// ===================== PAYSTACK VERIFICATION =====================
+app.post('/api/verify-payment', async (req: Request, res: Response) => {
+    const { reference, name, email, phone, program, training, amount } = req.body;
+
+    if (!reference) {
+        return res.status(400).json({ success: false, message: "Reference is required" });
+    }
+
+    try {
+        const response = await axios.get(
+            `https://api.paystack.co/transaction/verify/${reference}`,
+            {
+                headers: { Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}` }
+            }
+        );
+
+        const data = response.data.data;
+
+        if (data.status === "success") {
+            const paymentDate = new Date().toLocaleString("en-NG", {
+                timeZone: "Africa/Lagos",
+                dateStyle: "full",
+                timeStyle: "short",
+            });
+
+            await sendPaymentEmails(name, email, phone, program, training, amount, reference, paymentDate);
+            await sendToFormspree(name, email, phone, program, training, amount, reference, paymentDate, "Paystack");
+
+            return res.status(200).json({
+                success: true,
+                message: "Payment verified successfully!",
+            });
+        } else {
+            return res.status(400).json({ success: false, message: "Payment not successful" });
+        }
+    } catch (error: any) {
+        console.error("Paystack verification error:", error.response?.data || error.message);
+        res.status(500).json({ success: false, message: "Verification failed" });
+    }
+});
+
+// ===================== HELPER FUNCTIONS =====================
+
+async function sendPaymentEmails(
+    name: string,
+    email: string,
+    phone: string,
+    program: string,
+    training: string,
+    amount: number | string,
+    reference: string,
+    paymentDate: string,
+    receipt?: any
+) {
+    // 1. Email to Customer
+    await brevo.transactionalEmails.sendTransacEmail({
+        sender: {
+            email: process.env.BREVO_FROM_EMAIL!,
+            name: process.env.BREVO_FROM_NAME!,
+        },
+        to: [{ email, name }],
+        subject: "Payment Confirmed - Aceline Growth Training",
+        htmlContent: `
+            <h2>Thank You, ${name}!</h2>
+            <p>Your payment has been received successfully.</p>
+            <table cellpadding="8" style="border-collapse: collapse;">
+                <tr><td><strong>Program:</strong></td><td>${program}</td></tr>
+                <tr><td><strong>Training:</strong></td><td>${training}</td></tr>
+                <tr><td><strong>Amount:</strong></td><td>₦${Number(amount).toLocaleString()}</td></tr>
+                <tr><td><strong>Reference:</strong></td><td>${reference}</td></tr>
+                <tr><td><strong>Date:</strong></td><td>${paymentDate}</td></tr>
+            </table>
+            <p>Our team will send you access details shortly.</p>
+        `,
+    });
+
+    // 2. Email to Admin
+    await brevo.transactionalEmails.sendTransacEmail({
+        sender: {
+            email: process.env.BREVO_FROM_EMAIL!,
+            name: process.env.BREVO_FROM_NAME!,
+        },
+        to: [{ email: "acelineintl@gmail.com", name: "Aceline Admin" }],
+        subject: `New Payment - ${reference}`,
+        htmlContent: `
+            <h2>New Payment Received</h2>
+            <table cellpadding="8">
+                <tr><td><strong>Name</strong></td><td>${name}</td></tr>
+                <tr><td><strong>Email</strong></td><td>${email}</td></tr>
+                <tr><td><strong>Phone</strong></td><td>${phone || 'N/A'}</td></tr>
+                <tr><td><strong>Program</strong></td><td>${program}</td></tr>
+                <tr><td><strong>Training</strong></td><td>${training}</td></tr>
+                <tr><td><strong>Amount</strong></td><td>₦${Number(amount).toLocaleString()}</td></tr>
+                <tr><td><strong>Reference</strong></td><td>${reference}</td></tr>
+                <tr><td><strong>Date</strong></td><td>${paymentDate}</td></tr>
+            </table>
+        `,
+        attachment: receipt ? [{
+            name: receipt.originalname,
+            content: receipt.buffer.toString("base64"),
+        }] : undefined,
+    });
+}
+
+async function sendToFormspree(
+    name: string,
+    email: string,
+    phone: string,
+    program: string,
+    training: string,
+    amount: number | string,
+    reference: string,
+    paymentDate: string,
+    method: string
+) {
+    const endpoint = process.env.FORMSPREE_ENDPOINT;
+    if (!endpoint) return;
+
+    try {
+        const form = new FormData();
+        form.append("name", name);
+        form.append("email", email);
+        form.append("phone", phone);
+        form.append("program", program);
+        form.append("training", training);
+        form.append("amount", amount);
+        form.append("reference", reference);
+        form.append("payment_method", method);
+        form.append("payment_date", paymentDate);
+
+        await axios.post(endpoint, form, { headers: form.getHeaders() });
+    } catch (err: any) {
+        console.error("Formspree error:", err?.message);
+    }
+}
+
+// Start Server
 app.listen(PORT, () => {
-    console.log(`Backend server running on port ${PORT}`);
+    console.log(`✅ Server running on port ${PORT}`);
 });
